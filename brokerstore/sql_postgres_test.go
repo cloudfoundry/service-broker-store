@@ -2,7 +2,7 @@ package brokerstore_test
 
 import (
 	"code.cloudfoundry.org/lager/lagertest"
-	"github.com/cloudfoundry-incubator/service-broker-store/brokerstore"
+	"code.cloudfoundry.org/service-broker-store/brokerstore"
 
 	"errors"
 

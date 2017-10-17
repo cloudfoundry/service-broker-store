@@ -3,8 +3,8 @@ package brokerstore_test
 import (
 	"code.cloudfoundry.org/lager"
 	"code.cloudfoundry.org/lager/lagertest"
-	"github.com/cloudfoundry-incubator/service-broker-store/brokerstore"
-	"github.com/cloudfoundry-incubator/service-broker-store/brokerstore/brokerstorefakes"
+	"code.cloudfoundry.org/service-broker-store/brokerstore"
+	"code.cloudfoundry.org/service-broker-store/brokerstore/brokerstorefakes"
 
 	"errors"
 	"time"
