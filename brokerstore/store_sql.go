@@ -3,12 +3,11 @@ package brokerstore
 import (
 	"fmt"
 
-	//"encoding/json"
-
 	"database/sql"
 
 	"encoding/json"
 	"reflect"
+	"errors"
 
 	"code.cloudfoundry.org/lager"
 	"github.com/pivotal-cf/brokerapi"
@@ -46,6 +45,10 @@ func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (Store, 
 		return nil, err
 	}
 
+  return NewSqlStoreWithDatabase(logger, database)
+}
+
+func NewSqlStoreWithDatabase(logger lager.Logger, database  SqlConnection) (Store, error) {
 	return &SqlStore{
 		Database: database,
 	}, nil
@@ -99,6 +102,11 @@ func (s *SqlStore) CreateInstanceDetails(id string, details ServiceInstance) err
 	if err != nil {
 		return err
 	}
+
+	if passwordCheck(jsonData) {
+		return errors.New("passwords are not allowed in service instance configuration")
+	}
+
 	_, err = s.Database.Exec("INSERT INTO service_instances (id, value) VALUES (?, ?)", id, jsonData)
 	if err != nil {
 		return err

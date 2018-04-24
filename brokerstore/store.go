@@ -115,3 +115,51 @@ func isBindingConflict(s Store, id string, details brokerapi.BindDetails) bool {
 	}
 	return false
 }
+
+// checks service details to see if there is a "password" key contained within.  Since we don't encrypt stored data,
+// it's not safe to store secrets in service instances.
+func passwordCheck(data []byte) bool {
+	var jsonBlob interface{}
+	err := json.Unmarshal(data, &jsonBlob)
+	if err != nil {
+		return false
+	}
+	return passwordCheckValue(&jsonBlob)
+}
+
+func passwordCheckValue(data *interface{}) bool {
+	if data == nil {
+		return false
+	}
+
+	if a, ok := (*data).([]interface{}); ok {
+		return passwordCheckArray(&a)
+	} else if m, ok := (*data).(map[string]interface{}); ok {
+		return passwordCheckObject(&m)
+	} else {
+		return false
+	}
+}
+
+func passwordCheckArray(data *[]interface{}) bool {
+	for i, _ := range *data {
+		if passwordCheckValue(&((*data)[i])) {
+			return true
+		}
+	}
+	return false
+}
+
+func passwordCheckObject(data *map[string]interface{}) bool {
+	for k, v := range *data {
+		if k == "password" {
+			return true
+		}
+		if passwordCheckValue(&v) {
+			return true
+		}
+	}
+	return false
+}
+
+

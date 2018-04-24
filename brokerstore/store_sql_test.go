@@ -37,7 +37,7 @@ func (a redactedStuff) Match(v driver.Value) bool {
 
 var _ = Describe("SqlStore", func() {
 	var (
-		store                                                            brokerstore.Store
+		store, sqlStore                                                  brokerstore.Store
 		logger                                                           lager.Logger
 		state                                                            brokerstore.DynamicState
 		fakeSqlDb                                                        = &sql_fake.FakeSqlDB{}
@@ -45,7 +45,6 @@ var _ = Describe("SqlStore", func() {
 		err                                                              error
 		bindingID, serviceID, planID, orgGUID, spaceGUID, appGUID, share string
 		serviceInstance                                                  brokerstore.ServiceInstance
-		sqlStore                                                         brokerstore.SqlStore
 		db                                                               *sql.DB
 		mock                                                             sqlmock.Sqlmock
 		bindResource                                                     brokerapi.BindResource
@@ -70,8 +69,10 @@ var _ = Describe("SqlStore", func() {
 			BindingMap: map[string]brokerapi.BindDetails{},
 		}
 		db, mock, err = sqlmock.New()
-		sqlStore = brokerstore.SqlStore{Database: brokerstorefakes.FakeSQLMockConnection{db},
-			StoreType: "mysql"}
+		Expect(err).ToNot(HaveOccurred())
+
+		sqlStore, err = brokerstore.NewSqlStoreWithDatabase(logger, brokerstorefakes.FakeSQLMockConnection{db})
+		Expect(err).ToNot(HaveOccurred())
 	})
 
 	It("should open a db connection", func() {
@@ -210,27 +211,63 @@ var _ = Describe("SqlStore", func() {
 	})
 
 	Describe("CreateInstanceDetails", func() {
-		BeforeEach(func() {
-			Expect(err).NotTo(HaveOccurred())
-			orgGUID = "org_123"
-			planID = "plan_123"
-			serviceID = "service_123"
-			spaceGUID = "space_123"
-			share = "share_123"
-			serviceInstance = brokerstore.ServiceInstance{ServiceID: serviceID, PlanID: planID, OrganizationGUID: orgGUID, SpaceGUID: spaceGUID, ServiceFingerPrint: share}
-			jsonValue, err := json.Marshal(serviceInstance)
-			Expect(err).NotTo(HaveOccurred())
+		Context("when the service instance is valid", func() {
+			BeforeEach(func() {
+				orgGUID = "org_123"
+				planID = "plan_123"
+				serviceID = "service_123"
+				spaceGUID = "space_123"
+				share = "share_123"
+				serviceInstance = brokerstore.ServiceInstance{ServiceID: serviceID, PlanID: planID, OrganizationGUID: orgGUID, SpaceGUID: spaceGUID, ServiceFingerPrint: share}
+				jsonValue, err := json.Marshal(serviceInstance)
+				Expect(err).NotTo(HaveOccurred())
 
-			result := sqlmock.NewResult(1, 1)
-			mock.ExpectExec("INSERT INTO service_instances").WithArgs(serviceID, jsonValue).WillReturnResult(result)
+				result := sqlmock.NewResult(1, 1)
+				mock.ExpectExec("INSERT INTO service_instances").WithArgs(serviceID, jsonValue).WillReturnResult(result)
+			})
+			JustBeforeEach(func() {
+				err = sqlStore.CreateInstanceDetails(serviceID, serviceInstance)
+			})
+			It("should not error and call INSERT INTO on the db", func() {
+				Expect(err).To(BeNil())
+				Expect(mock.ExpectationsWereMet()).Should(Succeed())
+			})
 		})
-		JustBeforeEach(func() {
-			err = sqlStore.CreateInstanceDetails(serviceID, serviceInstance)
+		Context("when the service instance fingerprint contains a `password` key", func() {
+			var fp interface{}
+			BeforeEach(func() {
+				orgGUID = "org_123"
+				planID = "plan_123"
+				serviceID = "service_123"
+				spaceGUID = "space_123"
+				fp = map[string]string{"password": "terribleSecrets"}
+			})
+			JustBeforeEach(func() {
+				serviceInstance = brokerstore.ServiceInstance{ServiceID: serviceID, PlanID: planID, OrganizationGUID: orgGUID, SpaceGUID: spaceGUID, ServiceFingerPrint: fp}
+				jsonValue, err2 := json.Marshal(serviceInstance)
+				Expect(err2).NotTo(HaveOccurred())
+
+				result := sqlmock.NewResult(1, 1)
+				mock.ExpectExec("INSERT INTO service_instances").WithArgs(serviceID, jsonValue).WillReturnResult(result)
+				err = sqlStore.CreateInstanceDetails(serviceID, serviceInstance)
+			})
+			It("should fail", func() {
+				Expect(err).NotTo(BeNil())
+			})
+			Context("when there's an array of stuff", func() {
+				BeforeEach(func() {
+					fp = []interface{}{
+						map[string]string{"notapassword": "terribleSecrets"},
+						map[string]string{"alsonotapassword": "terribleSecrets"},
+						map[string]string{"password": "terribleSecrets"},
+					}
+				})
+				It("should fail", func() {
+					Expect(err).NotTo(BeNil())
+				})
+			})
 		})
-		It("should not error and call INSERT INTO on the db", func() {
-			Expect(err).To(BeNil())
-			Expect(mock.ExpectationsWereMet()).Should(Succeed())
-		})
+
 	})
 
 	Describe("CreateBindingDetails", func() {
