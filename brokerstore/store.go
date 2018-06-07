@@ -6,8 +6,10 @@ import (
 
 	"code.cloudfoundry.org/goshims/ioutilshim"
 	"code.cloudfoundry.org/lager"
+	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
 	"github.com/pivotal-cf/brokerapi"
 	"golang.org/x/crypto/bcrypt"
+	"fmt"
 )
 
 type ServiceInstance struct {
@@ -37,13 +39,15 @@ type Store interface {
 	Cleanup() error
 }
 
-func NewStore(logger lager.Logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert, fileName string) Store {
+func NewStore(logger lager.Logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert, clientName, clientSecret, fileName string) Store {
 	if dbDriver != "" {
 		store, err := NewSqlStore(logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert)
 		if err != nil {
 			logger.Fatal("failed-creating-sql-store", err)
 		}
 		return store
+	} else if clientName != "" && clientSecret != "" {
+		return NewCredhubStore(logger, &credhub_shims.CredhubShim{})
 	} else {
 		return NewFileStore(fileName, &ioutilshim.IoutilShim{})
 	}
@@ -80,6 +84,15 @@ func redactBindingDetails(details brokerapi.BindDetails) (brokerapi.BindDetails,
 		return brokerapi.BindDetails{}, err
 	}
 	return details, nil
+}
+
+func isInstanceConflicts(s Store, id string, details ServiceInstance) bool {
+	if existing, err := s.RetrieveInstanceDetails(id); err == nil {
+		if !reflect.DeepEqual(details, existing) {
+			return true
+		}
+	}
+	return false
 }
 
 func isBindingConflict(s Store, id string, details brokerapi.BindDetails) bool {
@@ -161,5 +174,3 @@ func passwordCheckObject(data *map[string]interface{}) bool {
 	}
 	return false
 }
-
-
