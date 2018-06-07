@@ -6,7 +6,6 @@ import (
 	"database/sql"
 
 	"encoding/json"
-	"reflect"
 	"errors"
 
 	"code.cloudfoundry.org/lager"
@@ -45,10 +44,10 @@ func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (Store, 
 		return nil, err
 	}
 
-  return NewSqlStoreWithDatabase(logger, database)
+	return NewSqlStoreWithDatabase(logger, database)
 }
 
-func NewSqlStoreWithDatabase(logger lager.Logger, database  SqlConnection) (Store, error) {
+func NewSqlStoreWithDatabase(logger lager.Logger, database SqlConnection) (Store, error) {
 	return &SqlStore{
 		Database: database,
 	}, nil
@@ -200,12 +199,7 @@ func (s *SqlStore) keyValueInTable(logger lager.Logger, key, value, table string
 }
 
 func (s *SqlStore) IsInstanceConflict(id string, details ServiceInstance) bool {
-	if existing, err := s.RetrieveInstanceDetails(id); err == nil {
-		if !reflect.DeepEqual(details, existing) {
-			return true
-		}
-	}
-	return false
+	return isInstanceConflict(s, id, details)
 }
 
 func (s *SqlStore) IsBindingConflict(id string, details brokerapi.BindDetails) bool {
