@@ -5,6 +5,7 @@ import (
 
 	"crypto/tls"
 	"crypto/x509"
+	"strings"
 	"time"
 
 	"code.cloudfoundry.org/goshims/sqlshim"
@@ -44,7 +45,13 @@ func (c *mysqlVariant) Connect(logger lager.Logger) (sqlshim.SqlDB, error) {
 		}
 
 		logger.Debug("secure-mysql")
-		certBytes := []byte(c.caCert)
+		// parse off any leading whitespace from the ca certificate
+		cert := strings.Replace(c.caCert, "  ", "", -1)
+		cert = strings.Replace(cert, "\n ", "\n", -1)
+		cert = strings.Replace(cert, "\t", "", -1)
+		cert = strings.TrimLeft(cert, " \t")
+
+		certBytes := []byte(cert)
 
 		caCertPool := x509.NewCertPool()
 		if ok := caCertPool.AppendCertsFromPEM(certBytes); !ok {

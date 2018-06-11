@@ -53,6 +53,20 @@ var _ = Describe("MysqlVariant", func() {
 				Expect(connectionString).To(Equal("username:password@tcp(host:port)/dbName?readTimeout=10m0s\u0026timeout=10m0s\u0026tls=nfs-tls\u0026writeTimeout=10m0s"))
 			})
 		})
+		Context("when ca cert has leading whitespace", func() {
+			BeforeEach(func() {
+				cert = spacyCaCert
+			})
+
+			It("open call has correctly formed connection string", func() {
+				Expect(err).NotTo(HaveOccurred())
+
+				Expect(fakeSql.OpenCallCount()).To(Equal(1))
+				dbType, connectionString := fakeSql.OpenArgsForCall(0)
+				Expect(dbType).To(Equal("mysql"))
+				Expect(connectionString).To(Equal("username:password@tcp(host:port)/dbName?readTimeout=10m0s\u0026timeout=10m0s\u0026tls=nfs-tls\u0026writeTimeout=10m0s"))
+			})
+		})
 
 		Context("when ca cert specified is invalid", func() {
 			BeforeEach(func() {
