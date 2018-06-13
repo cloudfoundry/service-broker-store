@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 
+	"code.cloudfoundry.org/credhub-cli/credhub"
+	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
+	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
 	"code.cloudfoundry.org/lager"
 	"code.cloudfoundry.org/lager/lagertest"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/credentials"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/credentials/values"
 	"github.com/pivotal-cf/brokerapi"
 	"golang.org/x/crypto/bcrypt"
 

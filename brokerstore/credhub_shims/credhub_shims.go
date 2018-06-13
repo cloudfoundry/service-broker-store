@@ -1,10 +1,10 @@
 package credhub_shims
 
 import (
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/auth"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/credentials"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/credentials/values"
+	"code.cloudfoundry.org/credhub-cli/credhub"
+	"code.cloudfoundry.org/credhub-cli/credhub/auth"
+	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
+	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
 )
 
 //go:generate counterfeiter -o ./credhub_fakes/credhub_auth_fake.go . CredhubAuth
@@ -59,6 +59,6 @@ func (ch *CredhubShim) GetLatestJSON(name string) (credentials.JSON, error) {
 	return ch.delegate.GetLatestJSON(name)
 }
 
-func (ch *CredhubShim) Delete(name string) (error) {
+func (ch *CredhubShim) Delete(name string) error {
 	return ch.delegate.Delete(name)
 }

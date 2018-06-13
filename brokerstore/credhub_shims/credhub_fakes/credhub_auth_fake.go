@@ -4,8 +4,8 @@ package credhub_fakes
 import (
 	"sync"
 
+	"code.cloudfoundry.org/credhub-cli/credhub/auth"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/auth"
 )
 
 type FakeCredhubAuth struct {

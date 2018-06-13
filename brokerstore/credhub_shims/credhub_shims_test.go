@@ -3,10 +3,10 @@ package credhub_shims_test
 import (
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
 
-	"github.com/cloudfoundry-incubator/credhub-cli/credhub/auth"
+	"code.cloudfoundry.org/credhub-cli/credhub/auth"
+	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
 )
 
 var _ = Describe("CredhubShims", func() {
