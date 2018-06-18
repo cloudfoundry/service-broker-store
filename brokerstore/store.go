@@ -38,7 +38,12 @@ type Store interface {
 	Cleanup() error
 }
 
-func NewStore(logger lager.Logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert, credhubURL, clientID, clientSecret, fileName string) Store {
+func NewStore(
+	logger lager.Logger,
+	dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert,
+	credhubURL, credhubCACert, clientID, clientSecret,
+	fileName string,
+) Store {
 	if dbDriver != "" {
 		store, err := NewSqlStore(logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert)
 		if err != nil {
@@ -46,7 +51,7 @@ func NewStore(logger lager.Logger, dbDriver, dbUsername, dbPassword, dbHostname,
 		}
 		return store
 	} else if credhubURL != "" {
-		ch, err := credhub_shims.NewCredhubShim(credhubURL, clientID, clientSecret, true, &credhub_shims.CredhubAuthShim{})
+		ch, err := credhub_shims.NewCredhubShim(credhubURL, credhubCACert, clientID, clientSecret, &credhub_shims.CredhubAuthShim{})
 		if err != nil {
 			logger.Fatal("failed-creating-credhub-store", err)
 		}

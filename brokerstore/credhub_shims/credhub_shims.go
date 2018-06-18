@@ -32,14 +32,15 @@ type CredhubShim struct {
 
 func NewCredhubShim(
 	url string,
+	caCert string,
 	clientID string,
 	clientSecret string,
-	skipSslValidation bool,
 	authShim CredhubAuth,
 ) (Credhub, error) {
 	delegate, err := credhub.New(
 		url,
-		credhub.SkipTLSValidation(skipSslValidation),
+		credhub.CaCerts(caCert),
+		credhub.SkipTLSValidation(false),
 		credhub.Auth(authShim.UaaClientCredentials(clientID, clientSecret)),
 	)
 	if err != nil {
