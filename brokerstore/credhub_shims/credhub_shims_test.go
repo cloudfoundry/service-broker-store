@@ -39,6 +39,21 @@ var _ = Describe("CredhubShims", func() {
 			Expect(clientID).To(Equal("some-client-id"))
 			Expect(clientSecret).To(Equal("some-client-secret"))
 		})
+
+		Context("when CA cert is not provided", func() {
+			BeforeEach(func() {
+				caCert = generateCaCert()
+			})
+
+			It("instantiates credhub without CA cert", func() {
+				_, err := credhub_shims.NewCredhubShim("http://some-url", "", "some-client-id", "some-client-secret", fakeCredhubAuthShim)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(fakeCredhubAuthShim.UaaClientCredentialsCallCount()).To(Equal(1))
+				clientID, clientSecret := fakeCredhubAuthShim.UaaClientCredentialsArgsForCall(0)
+				Expect(clientID).To(Equal("some-client-id"))
+				Expect(clientSecret).To(Equal("some-client-secret"))
+			})
+		})
 	})
 })
 

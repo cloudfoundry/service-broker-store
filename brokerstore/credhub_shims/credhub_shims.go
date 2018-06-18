@@ -37,12 +37,16 @@ func NewCredhubShim(
 	clientSecret string,
 	authShim CredhubAuth,
 ) (Credhub, error) {
-	delegate, err := credhub.New(
-		url,
-		credhub.CaCerts(caCert),
-		credhub.SkipTLSValidation(false),
-		credhub.Auth(authShim.UaaClientCredentials(clientID, clientSecret)),
-	)
+	var delegate *credhub.CredHub
+	var err error
+	auth := credhub.Auth(authShim.UaaClientCredentials(clientID, clientSecret))
+
+	if caCert != "" {
+		delegate, err = credhub.New(url, credhub.CaCerts(caCert), auth)
+	} else {
+		delegate, err = credhub.New(url, auth)
+	}
+
 	if err != nil {
 		return nil, err
 	}
