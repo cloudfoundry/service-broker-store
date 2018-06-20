@@ -2,6 +2,7 @@ package brokerstore
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"code.cloudfoundry.org/credhub-cli/credhub"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
@@ -13,12 +14,14 @@ import (
 type credhubStore struct {
 	logger      lager.Logger
 	credhubShim credhub_shims.Credhub
+	storeID     string
 }
 
-func NewCredhubStore(logger lager.Logger, credhubShim credhub_shims.Credhub) Store {
+func NewCredhubStore(logger lager.Logger, credhubShim credhub_shims.Credhub, storeID string) Store {
 	return &credhubStore{
 		logger:      logger,
 		credhubShim: credhubShim,
+		storeID:     storeID,
 	}
 }
 
@@ -27,7 +30,7 @@ func (s *credhubStore) CreateInstanceDetails(id string, details ServiceInstance)
 	if err != nil {
 		return err
 	}
-	_, err = s.credhubShim.SetJSON(id, mappedDetails, credhub.NoOverwrite)
+	_, err = s.credhubShim.SetJSON(s.namespaced(id), mappedDetails, credhub.NoOverwrite)
 	if err != nil {
 		return err
 	}
@@ -35,7 +38,7 @@ func (s *credhubStore) CreateInstanceDetails(id string, details ServiceInstance)
 }
 
 func (s *credhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, error) {
-	creds, err := s.credhubShim.GetLatestJSON(id)
+	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
 		return ServiceInstance{}, err
 	}
@@ -49,7 +52,7 @@ func (s *credhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, erro
 	return serviceInstance, nil
 }
 func (s *credhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
-	creds, err := s.credhubShim.GetLatestJSON(id)
+	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
 		return brokerapi.BindDetails{}, err
 	}
@@ -69,7 +72,7 @@ func (s *credhubStore) CreateBindingDetails(id string, details brokerapi.BindDet
 		return err
 	}
 
-	_, err = s.credhubShim.SetJSON(id, mappedDetails, credhub.NoOverwrite)
+	_, err = s.credhubShim.SetJSON(s.namespaced(id), mappedDetails, credhub.NoOverwrite)
 	if err != nil {
 		return err
 	}
@@ -77,10 +80,10 @@ func (s *credhubStore) CreateBindingDetails(id string, details brokerapi.BindDet
 }
 
 func (s *credhubStore) DeleteInstanceDetails(id string) error {
-	return s.credhubShim.Delete(id)
+	return s.credhubShim.Delete(s.namespaced(id))
 }
 func (s *credhubStore) DeleteBindingDetails(id string) error {
-	return s.credhubShim.Delete(id)
+	return s.credhubShim.Delete(s.namespaced(id))
 }
 
 func (s *credhubStore) IsInstanceConflict(id string, details ServiceInstance) bool {
@@ -100,6 +103,10 @@ func (s *credhubStore) Save(logger lager.Logger) error {
 
 func (s *credhubStore) Cleanup() error {
 	return nil
+}
+
+func (s *credhubStore) namespaced(id string) string {
+	return fmt.Sprintf("/%s/%s", s.storeID, id)
 }
 
 func toMap(subject interface{}) (map[string]interface{}, error) {

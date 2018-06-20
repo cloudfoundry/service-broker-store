@@ -43,6 +43,7 @@ func NewStore(
 	dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert,
 	credhubURL, credhubCACert, clientID, clientSecret,
 	fileName string,
+	storeID string,
 ) Store {
 	if dbDriver != "" {
 		store, err := NewSqlStore(logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert)
@@ -55,7 +56,7 @@ func NewStore(
 		if err != nil {
 			logger.Fatal("failed-creating-credhub-store", err)
 		}
-		return NewCredhubStore(logger, ch)
+		return NewCredhubStore(logger, ch, storeID)
 	} else {
 		return NewFileStore(fileName, &ioutilshim.IoutilShim{})
 	}

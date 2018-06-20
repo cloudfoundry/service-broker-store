@@ -49,7 +49,7 @@ var _ = Describe("CredhubStore", func() {
 	BeforeEach(func() {
 		logger = lagertest.NewTestLogger("CredHubStoreTest")
 		fakeCredhub = &credhub_fakes.FakeCredhub{}
-		store = NewCredhubStore(logger, fakeCredhub)
+		store = NewCredhubStore(logger, fakeCredhub, "some-store-id")
 	})
 
 	Context("#CreateInstanceDetails", func() {
@@ -89,7 +89,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
 			id, value, mode := fakeCredhub.SetJSONArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 			actualJSON, err := json.Marshal(value)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(actualJSON).To(MatchJSON(expectedJSON))
@@ -136,7 +136,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.GetLatestJSONCallCount()).To(Equal(1))
 			id := fakeCredhub.GetLatestJSONArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 			Expect(serviceInstance).To(Equal(ServiceInstance{
 				ServiceID:          "service-id",
 				PlanID:             "plan-id",
@@ -188,7 +188,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.GetLatestJSONCallCount()).To(Equal(1))
 			id := fakeCredhub.GetLatestJSONArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 			Expect(bindingDetails).To(Equal(brokerapi.BindDetails{
 				AppGUID:       "app-guid",
 				PlanID:        "plan-id",
@@ -242,7 +242,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
 			id, value, mode := fakeCredhub.SetJSONArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 			actualJSON, err := json.Marshal(value)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(actualJSON).To(MatchJSON(expectedJSON))
@@ -294,7 +294,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
 			id, value, mode := fakeCredhub.SetJSONArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 			actualJSON, err := json.Marshal(value)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(actualJSON).To(MatchJSON(expectedJSON))
@@ -330,7 +330,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.DeleteCallCount()).To(Equal(1))
 			id := fakeCredhub.DeleteArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 		})
 
 		Context("when Delete returns an error", func() {
@@ -361,7 +361,7 @@ var _ = Describe("CredhubStore", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.DeleteCallCount()).To(Equal(1))
 			id := fakeCredhub.DeleteArgsForCall(0)
-			Expect(id).To(Equal("12345"))
+			Expect(id).To(Equal("/some-store-id/12345"))
 		})
 
 		Context("when SetJSON returns an error", func() {
