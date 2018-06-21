@@ -147,6 +147,58 @@ func (s *SqlStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, err
 	}
 }
 
+func (s *SqlStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, error) {
+	serviceInstances := map[string]ServiceInstance{}
+
+	rows, err := s.Database.Query("SELECT id, value FROM service_instances")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var serviceInstance ServiceInstance
+		var id string
+		var jsonValue []byte
+		err = rows.Scan(&id, &jsonValue)
+		if err != nil {
+			return nil, err
+		}
+		err = json.Unmarshal(jsonValue, &serviceInstance)
+		if err != nil {
+			return nil, err
+		}
+		serviceInstances[id] = serviceInstance
+	}
+
+	return serviceInstances, nil
+}
+
+func (s *SqlStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error) {
+	bindingDetails := map[string]brokerapi.BindDetails{}
+
+	rows, err := s.Database.Query("SELECT id, value FROM service_bindings")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var bindDetails brokerapi.BindDetails
+		var id string
+		var jsonValue []byte
+		err = rows.Scan(&id, &jsonValue)
+		if err != nil {
+			return nil, err
+		}
+		err = json.Unmarshal(jsonValue, &bindDetails)
+		if err != nil {
+			return nil, err
+		}
+		bindingDetails[id] = bindDetails
+	}
+
+	return bindingDetails, nil
+}
+
 func (s *SqlStore) CreateBindingDetails(id string, details brokerapi.BindDetails) error {
 	storeDetails, err := redactBindingDetails(details)
 

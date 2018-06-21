@@ -19,10 +19,13 @@ type ServiceInstance struct {
 	ServiceFingerPrint interface{}
 }
 
-//go:generate counterfeiter -o ../brokerstorefakes/fake_store.go . Store
+//go:generate counterfeiter -o ./brokerstorefakes/fake_store.go . Store
 type Store interface {
 	RetrieveInstanceDetails(id string) (ServiceInstance, error)
 	RetrieveBindingDetails(id string) (brokerapi.BindDetails, error)
+
+	RetrieveAllInstanceDetails() (map[string]ServiceInstance, error)
+	RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error)
 
 	CreateInstanceDetails(id string, details ServiceInstance) error
 	CreateBindingDetails(id string, details brokerapi.BindDetails) error

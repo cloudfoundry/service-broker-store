@@ -51,6 +51,7 @@ func (s *credhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, erro
 
 	return serviceInstance, nil
 }
+
 func (s *credhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
 	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
@@ -64,6 +65,14 @@ func (s *credhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails,
 	}
 
 	return bindDetails, nil
+}
+
+func (s *credhubStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, error) {
+	panic("Not Implemented")
+}
+
+func (s *credhubStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error) {
+	panic("Not Implemented")
 }
 
 func (s *credhubStore) CreateBindingDetails(id string, details brokerapi.BindDetails) error {

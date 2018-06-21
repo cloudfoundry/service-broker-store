@@ -134,10 +134,11 @@ var _ = Describe("SqlStore", func() {
 
 				mock.ExpectQuery("SELECT id, value FROM service_instances WHERE id = ?").WithArgs(serviceID).WillReturnRows(rows)
 			})
-			JustBeforeEach(func() {
 
+			JustBeforeEach(func() {
 				serviceInstance, err = sqlStore.RetrieveInstanceDetails(serviceID)
 			})
+
 			It("should return the instance", func() {
 				Expect(err).To(BeNil())
 				Expect(mock.ExpectationsWereMet()).Should(Succeed())
@@ -148,6 +149,7 @@ var _ = Describe("SqlStore", func() {
 				Expect(serviceInstance.ServiceFingerPrint).To(Equal(share))
 			})
 		})
+
 		Context("When the instance does not exist", func() {
 			BeforeEach(func() {
 				mock.ExpectQuery("SELECT id, value FROM service_instances WHERE id = ?").WithArgs(serviceID)
@@ -160,7 +162,6 @@ var _ = Describe("SqlStore", func() {
 				Expect(reflect.DeepEqual(serviceInstance, brokerstore.ServiceInstance{})).To(BeTrue())
 			})
 		})
-
 	})
 
 	Describe("RetrieveBindingDetails", func() {
@@ -206,6 +207,115 @@ var _ = Describe("SqlStore", func() {
 			It("should return an error", func() {
 				Expect(err).To(HaveOccurred())
 				Expect(reflect.DeepEqual(bindDetails, brokerapi.BindDetails{})).To(BeTrue())
+			})
+		})
+	})
+
+	Describe("RetrieveAllInstanceDetails", func() {
+		var serviceInstances map[string]brokerstore.ServiceInstance
+
+		Context("when instances exist", func() {
+			BeforeEach(func() {
+				columns := []string{"id", "value"}
+				rows := sqlmock.NewRows(columns)
+
+				jsonvalue1, err := json.Marshal(brokerstore.ServiceInstance{
+					ServiceFingerPrint: "share_1",
+					PlanID:             "plan_1",
+					ServiceID:          "service_1",
+					OrganizationGUID:   "org_1",
+					SpaceGUID:          "space_1",
+				})
+				Expect(err).NotTo(HaveOccurred())
+				rows.AddRow("instance_1", jsonvalue1)
+
+				jsonvalue2, err := json.Marshal(brokerstore.ServiceInstance{
+					ServiceFingerPrint: "share_2",
+					PlanID:             "plan_2",
+					ServiceID:          "service_2",
+					OrganizationGUID:   "org_2",
+					SpaceGUID:          "space_2",
+				})
+				Expect(err).NotTo(HaveOccurred())
+				rows.AddRow("instance_2", jsonvalue2)
+
+				mock.ExpectQuery("SELECT id, value FROM service_instances").WillReturnRows(rows)
+			})
+
+			JustBeforeEach(func() {
+				serviceInstances, err = sqlStore.RetrieveAllInstanceDetails()
+			})
+
+			It("should return the instance", func() {
+				Expect(err).To(BeNil())
+				Expect(mock.ExpectationsWereMet()).Should(Succeed())
+				Expect(serviceInstances["instance_1"].ServiceID).To(Equal("service_1"))
+				Expect(serviceInstances["instance_1"].PlanID).To(Equal("plan_1"))
+				Expect(serviceInstances["instance_1"].OrganizationGUID).To(Equal("org_1"))
+				Expect(serviceInstances["instance_1"].SpaceGUID).To(Equal("space_1"))
+				Expect(serviceInstances["instance_1"].ServiceFingerPrint).To(Equal("share_1"))
+				Expect(serviceInstances["instance_2"].ServiceID).To(Equal("service_2"))
+				Expect(serviceInstances["instance_2"].PlanID).To(Equal("plan_2"))
+				Expect(serviceInstances["instance_2"].OrganizationGUID).To(Equal("org_2"))
+				Expect(serviceInstances["instance_2"].SpaceGUID).To(Equal("space_2"))
+				Expect(serviceInstances["instance_2"].ServiceFingerPrint).To(Equal("share_2"))
+			})
+		})
+	})
+
+	Describe("RetrieveAllBindingDetails", func() {
+		var (
+			bindingDetails               map[string]brokerapi.BindDetails
+			bindResource1, bindResource2 brokerapi.BindResource
+		)
+
+		Context("when instances exist", func() {
+			BeforeEach(func() {
+				columns := []string{"id", "value"}
+				rows := sqlmock.NewRows(columns)
+
+				bindResource1 = brokerapi.BindResource{AppGuid: "instance_1", Route: "binding-route-1"}
+				jsonvalue1, err := json.Marshal(brokerapi.BindDetails{
+					AppGUID:       "instance_1",
+					PlanID:        "plan_1",
+					ServiceID:     "service_1",
+					BindResource:  &bindResource1,
+					RawParameters: json.RawMessage([]byte(`{"a":"1"}`)),
+				})
+				Expect(err).NotTo(HaveOccurred())
+				rows.AddRow("binding_1", jsonvalue1)
+
+				bindResource2 = brokerapi.BindResource{AppGuid: "instance_2", Route: "binding-route-2"}
+				jsonvalue2, err := json.Marshal(brokerapi.BindDetails{
+					AppGUID:       "instance_2",
+					PlanID:        "plan_2",
+					ServiceID:     "service_2",
+					BindResource:  &bindResource2,
+					RawParameters: json.RawMessage([]byte(`{"a":"2"}`)),
+				})
+				Expect(err).NotTo(HaveOccurred())
+				rows.AddRow("binding_2", jsonvalue2)
+
+				mock.ExpectQuery("SELECT id, value FROM service_bindings").WillReturnRows(rows)
+			})
+
+			JustBeforeEach(func() {
+				bindingDetails, err = sqlStore.RetrieveAllBindingDetails()
+			})
+
+			It("should return the instance", func() {
+				Expect(err).To(BeNil())
+				Expect(mock.ExpectationsWereMet()).Should(Succeed())
+				Expect(bindingDetails["binding_1"].AppGUID).To(Equal("instance_1"))
+				Expect(bindingDetails["binding_1"].PlanID).To(Equal("plan_1"))
+				Expect(bindingDetails["binding_1"].ServiceID).To(Equal("service_1"))
+				Expect(bindingDetails["binding_1"].BindResource).To(Equal(&bindResource1))
+				Expect(bindingDetails["binding_1"].RawParameters).To(Equal(json.RawMessage([]byte(`{"a":"1"}`))))
+				Expect(bindingDetails["binding_2"].AppGUID).To(Equal("instance_2"))
+				Expect(bindingDetails["binding_2"].PlanID).To(Equal("plan_2"))
+				Expect(bindingDetails["binding_2"].ServiceID).To(Equal("service_2"))
+				Expect(bindingDetails["binding_2"].BindResource).To(Equal(&bindResource2))
+				Expect(bindingDetails["binding_2"].RawParameters).To(Equal(json.RawMessage([]byte(`{"a":"2"}`))))
 			})
 		})
 	})

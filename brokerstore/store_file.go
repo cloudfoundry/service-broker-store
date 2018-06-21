@@ -96,6 +96,15 @@ func (s *fileStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, er
 	}
 	return requestedBindingInstance, nil
 }
+
+func (s *fileStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, error) {
+	panic("Not Implemented")
+}
+
+func (s *fileStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error) {
+	panic("Not Implemented")
+}
+
 func (s *fileStore) CreateInstanceDetails(id string, details ServiceInstance) error {
 	s.dynamicState.InstanceMap[id] = details
 	return nil
