@@ -44,7 +44,7 @@ type Store interface {
 func NewStore(
 	logger lager.Logger,
 	dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert,
-	credhubURL, credhubCACert, clientID, clientSecret,
+	credhubURL, credhubCACert, clientID, clientSecret, uaaCACert,
 	fileName string,
 	storeID string,
 ) Store {
@@ -55,7 +55,7 @@ func NewStore(
 		}
 		return store
 	} else if credhubURL != "" {
-		ch, err := credhub_shims.NewCredhubShim(credhubURL, credhubCACert, clientID, clientSecret, &credhub_shims.CredhubAuthShim{})
+		ch, err := credhub_shims.NewCredhubShim(credhubURL, credhubCACert, clientID, clientSecret, uaaCACert, &credhub_shims.CredhubAuthShim{})
 		if err != nil {
 			logger.Fatal("failed-creating-credhub-store", err)
 		}

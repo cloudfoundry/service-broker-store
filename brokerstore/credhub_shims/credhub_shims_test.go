@@ -21,6 +21,7 @@ var _ = Describe("CredhubShims", func() {
 		fakeCredhubAuthShim *credhub_fakes.FakeCredhubAuth
 		fakeBuilder         auth.Builder
 		caCert              string
+		uaaCACert           string
 	)
 
 	BeforeEach(func() {
@@ -28,11 +29,12 @@ var _ = Describe("CredhubShims", func() {
 		fakeBuilder = auth.Noop
 		fakeCredhubAuthShim.UaaClientCredentialsReturns(fakeBuilder)
 		caCert = generateCaCert()
+		uaaCACert = generateCaCert()
 	})
 
 	Describe("NewCredhubShim", func() {
 		It("instantiates credhub with UAA auth", func() {
-			_, err := credhub_shims.NewCredhubShim("http://some-url", caCert, "some-client-id", "some-client-secret", fakeCredhubAuthShim)
+			_, err := credhub_shims.NewCredhubShim("http://some-url", caCert, "some-client-id", "some-client-secret", uaaCACert, fakeCredhubAuthShim)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhubAuthShim.UaaClientCredentialsCallCount()).To(Equal(1))
 			clientID, clientSecret := fakeCredhubAuthShim.UaaClientCredentialsArgsForCall(0)
@@ -45,8 +47,8 @@ var _ = Describe("CredhubShims", func() {
 				caCert = generateCaCert()
 			})
 
-			It("instantiates credhub without CA cert", func() {
-				_, err := credhub_shims.NewCredhubShim("http://some-url", "", "some-client-id", "some-client-secret", fakeCredhubAuthShim)
+			It("instantiates credhub without CA certs", func() {
+				_, err := credhub_shims.NewCredhubShim("http://some-url", "", "some-client-id", "some-client-secret", "", fakeCredhubAuthShim)
 				Expect(err).NotTo(HaveOccurred())
 				Expect(fakeCredhubAuthShim.UaaClientCredentialsCallCount()).To(Equal(1))
 				clientID, clientSecret := fakeCredhubAuthShim.UaaClientCredentialsArgsForCall(0)
