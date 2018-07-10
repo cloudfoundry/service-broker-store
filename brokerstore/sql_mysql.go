@@ -74,7 +74,6 @@ func (c *mysqlVariant) Connect(logger lager.Logger) (sqlshim.SqlDB, error) {
 		c.dbConnectionString = cfg.FormatDSN()
 	}
 
-	logger.Info("db-string", lager.Data{"value": c.dbConnectionString})
 	sqlDB, err := c.sql.Open("mysql", c.dbConnectionString)
 	return sqlDB, err
 }
