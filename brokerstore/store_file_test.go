@@ -3,6 +3,7 @@ package brokerstore_test
 import (
 	"encoding/json"
 	"errors"
+	"os"
 
 	"code.cloudfoundry.org/goshims/ioutilshim/ioutil_fake"
 	"code.cloudfoundry.org/lager"
@@ -41,6 +42,17 @@ var _ = Describe("FileStore", func() {
 			It("reads the file", func() {
 				Expect(fakeIoutil.ReadFileCallCount()).To(Equal(1))
 				Expect(err).ToNot(HaveOccurred())
+			})
+		})
+
+		Context("when the state file does not exist", func() {
+			BeforeEach(func() {
+				fakeIoutil.ReadFileReturns(nil, os.ErrNotExist)
+				err = store.Restore(logger)
+			})
+
+			It("does not return an error", func() {
+				Expect(err).NotTo(HaveOccurred())
 			})
 		})
 

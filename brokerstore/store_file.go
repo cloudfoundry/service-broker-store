@@ -42,6 +42,11 @@ func (s *fileStore) Restore(logger lager.Logger) error {
 
 	serviceData, err := s.ioutil.ReadFile(s.fileName)
 	if err != nil {
+		if os.IsNotExist(err) {
+			logger.Info("state-file-not-found", lager.Data{"fileName": s.fileName})
+			return nil
+		}
+
 		logger.Error("failed-to-read-state-file", err, lager.Data{"fileName": s.fileName})
 		return err
 	}
