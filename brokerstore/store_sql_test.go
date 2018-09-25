@@ -39,7 +39,6 @@ var _ = Describe("SqlStore", func() {
 	var (
 		store, sqlStore                                                  brokerstore.Store
 		logger                                                           lager.Logger
-		state                                                            brokerstore.DynamicState
 		fakeSqlDb                                                        = &sql_fake.FakeSqlDB{}
 		fakeVariant                                                      = &brokerstorefakes.FakeSqlVariant{}
 		err                                                              error
@@ -60,14 +59,6 @@ var _ = Describe("SqlStore", func() {
 		}
 		store, err = brokerstore.NewSqlStoreWithVariant(logger, fakeVariant)
 		Expect(err).ToNot(HaveOccurred())
-		state = brokerstore.DynamicState{
-			InstanceMap: map[string]brokerstore.ServiceInstance{
-				"service-name": {
-					ServiceFingerPrint: "server:/some-share",
-				},
-			},
-			BindingMap: map[string]brokerapi.BindDetails{},
-		}
 		db, mock, err = sqlmock.New()
 		Expect(err).ToNot(HaveOccurred())
 

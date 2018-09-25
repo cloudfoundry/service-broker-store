@@ -19,21 +19,12 @@ var _ = Describe("FileStore", func() {
 		store      brokerstore.Store
 		fakeIoutil *ioutil_fake.FakeIoutil
 		logger     lager.Logger
-		state      brokerstore.DynamicState
 	)
 
 	BeforeEach(func() {
 		logger = lagertest.NewTestLogger("test-broker")
 		fakeIoutil = &ioutil_fake.FakeIoutil{}
 		store = brokerstore.NewFileStore("/tmp/whatever", fakeIoutil)
-		state = brokerstore.DynamicState{
-			InstanceMap: map[string]brokerstore.ServiceInstance{
-				"service-name": {
-					ServiceFingerPrint: "server:/some-share",
-				},
-			},
-			BindingMap: map[string]brokerapi.BindDetails{},
-		}
 	})
 
 	Describe("Restore", func() {
