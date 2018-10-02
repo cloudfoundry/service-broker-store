@@ -4,19 +4,17 @@ package credhub_fakes
 import (
 	"sync"
 
-	"code.cloudfoundry.org/credhub-cli/credhub"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
 )
 
 type FakeCredhub struct {
-	SetJSONStub        func(name string, value values.JSON, overwrite credhub.Mode) (credentials.JSON, error)
+	SetJSONStub        func(name string, value values.JSON) (credentials.JSON, error)
 	setJSONMutex       sync.RWMutex
 	setJSONArgsForCall []struct {
-		name      string
-		value     values.JSON
-		overwrite credhub.Mode
+		name  string
+		value values.JSON
 	}
 	setJSONReturns struct {
 		result1 credentials.JSON
@@ -54,18 +52,17 @@ type FakeCredhub struct {
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakeCredhub) SetJSON(name string, value values.JSON, overwrite credhub.Mode) (credentials.JSON, error) {
+func (fake *FakeCredhub) SetJSON(name string, value values.JSON) (credentials.JSON, error) {
 	fake.setJSONMutex.Lock()
 	ret, specificReturn := fake.setJSONReturnsOnCall[len(fake.setJSONArgsForCall)]
 	fake.setJSONArgsForCall = append(fake.setJSONArgsForCall, struct {
-		name      string
-		value     values.JSON
-		overwrite credhub.Mode
-	}{name, value, overwrite})
-	fake.recordInvocation("SetJSON", []interface{}{name, value, overwrite})
+		name  string
+		value values.JSON
+	}{name, value})
+	fake.recordInvocation("SetJSON", []interface{}{name, value})
 	fake.setJSONMutex.Unlock()
 	if fake.SetJSONStub != nil {
-		return fake.SetJSONStub(name, value, overwrite)
+		return fake.SetJSONStub(name, value)
 	}
 	if specificReturn {
 		return ret.result1, ret.result2
@@ -79,10 +76,10 @@ func (fake *FakeCredhub) SetJSONCallCount() int {
 	return len(fake.setJSONArgsForCall)
 }
 
-func (fake *FakeCredhub) SetJSONArgsForCall(i int) (string, values.JSON, credhub.Mode) {
+func (fake *FakeCredhub) SetJSONArgsForCall(i int) (string, values.JSON) {
 	fake.setJSONMutex.RLock()
 	defer fake.setJSONMutex.RUnlock()
-	return fake.setJSONArgsForCall[i].name, fake.setJSONArgsForCall[i].value, fake.setJSONArgsForCall[i].overwrite
+	return fake.setJSONArgsForCall[i].name, fake.setJSONArgsForCall[i].value
 }
 
 func (fake *FakeCredhub) SetJSONReturns(result1 credentials.JSON, result2 error) {

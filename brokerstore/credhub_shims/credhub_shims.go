@@ -21,7 +21,7 @@ func (c *CredhubAuthShim) UaaClientCredentials(clientId, clientSecret string) au
 
 //go:generate counterfeiter -o ./credhub_fakes/credhub_fake.go . Credhub
 type Credhub interface {
-	SetJSON(name string, value values.JSON, overwrite credhub.Mode) (credentials.JSON, error)
+	SetJSON(name string, value values.JSON) (credentials.JSON, error)
 	GetLatestJSON(name string) (credentials.JSON, error)
 	Delete(name string) error
 }
@@ -66,8 +66,8 @@ func NewCredhubShim(
 	}, nil
 }
 
-func (ch *CredhubShim) SetJSON(name string, value values.JSON, overwrite credhub.Mode) (credentials.JSON, error) {
-	return ch.delegate.SetJSON(name, value, overwrite)
+func (ch *CredhubShim) SetJSON(name string, value values.JSON) (credentials.JSON, error) {
+	return ch.delegate.SetJSON(name, value)
 }
 
 func (ch *CredhubShim) GetLatestJSON(name string) (credentials.JSON, error) {

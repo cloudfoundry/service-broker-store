@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"code.cloudfoundry.org/credhub-cli/credhub"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
 	"code.cloudfoundry.org/lager"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
@@ -30,7 +29,7 @@ func (s *credhubStore) CreateInstanceDetails(id string, details ServiceInstance)
 	if err != nil {
 		return err
 	}
-	_, err = s.credhubShim.SetJSON(s.namespaced(id), mappedDetails, credhub.NoOverwrite)
+	_, err = s.credhubShim.SetJSON(s.namespaced(id), mappedDetails)
 	if err != nil {
 		return err
 	}
@@ -81,7 +80,7 @@ func (s *credhubStore) CreateBindingDetails(id string, details brokerapi.BindDet
 		return err
 	}
 
-	_, err = s.credhubShim.SetJSON(s.namespaced(id), mappedDetails, credhub.NoOverwrite)
+	_, err = s.credhubShim.SetJSON(s.namespaced(id), mappedDetails)
 	if err != nil {
 		return err
 	}

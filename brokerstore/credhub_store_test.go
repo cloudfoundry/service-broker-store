@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 
-	"code.cloudfoundry.org/credhub-cli/credhub"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
 	"code.cloudfoundry.org/lager"
@@ -88,12 +87,11 @@ var _ = Describe("CredhubStore", func() {
 		It("should store it in credhub", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
-			id, value, mode := fakeCredhub.SetJSONArgsForCall(0)
+			id, value := fakeCredhub.SetJSONArgsForCall(0)
 			Expect(id).To(Equal("/some-store-id/12345"))
 			actualJSON, err := json.Marshal(value)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(actualJSON).To(MatchJSON(expectedJSON))
-			Expect(mode).To(Equal(credhub.NoOverwrite))
 		})
 
 		Context("when SetJSON returns an error", func() {
@@ -241,12 +239,11 @@ var _ = Describe("CredhubStore", func() {
 		It("should store it in credhub", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
-			id, value, mode := fakeCredhub.SetJSONArgsForCall(0)
+			id, value := fakeCredhub.SetJSONArgsForCall(0)
 			Expect(id).To(Equal("/some-store-id/12345"))
 			actualJSON, err := json.Marshal(value)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(actualJSON).To(MatchJSON(expectedJSON))
-			Expect(mode).To(Equal(credhub.NoOverwrite))
 		})
 
 		Context("when SetJSON returns an error", func() {
@@ -293,12 +290,11 @@ var _ = Describe("CredhubStore", func() {
 		It("should store it in credhub", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
-			id, value, mode := fakeCredhub.SetJSONArgsForCall(0)
+			id, value := fakeCredhub.SetJSONArgsForCall(0)
 			Expect(id).To(Equal("/some-store-id/12345"))
 			actualJSON, err := json.Marshal(value)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(actualJSON).To(MatchJSON(expectedJSON))
-			Expect(mode).To(Equal(credhub.NoOverwrite))
 		})
 
 		Context("when SetJSON returns an error", func() {
