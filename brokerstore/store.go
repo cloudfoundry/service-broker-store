@@ -43,13 +43,13 @@ type Store interface {
 
 func NewStore(
 	logger lager.Logger,
-	dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert,
+	dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert string, dbSkipHostnameValidation bool,
 	credhubURL, credhubCACert, clientID, clientSecret, uaaCACert,
 	fileName string,
 	storeID string,
 ) Store {
 	if dbDriver != "" {
-		store, err := NewSqlStore(logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert)
+		store, err := NewSqlStore(logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert, dbSkipHostnameValidation)
 		if err != nil {
 			logger.Fatal("failed-creating-sql-store", err)
 		}

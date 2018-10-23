@@ -1,12 +1,10 @@
 package brokerstore
 
 import (
-	"fmt"
-
 	"database/sql"
-
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"code.cloudfoundry.org/lager"
 	"github.com/pivotal-cf/brokerapi"
@@ -17,13 +15,13 @@ type SqlStore struct {
 	Database  SqlConnection
 }
 
-func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, dbName, caCert string) (Store, error) {
+func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, dbName, caCert string, skipHostnameValidation bool) (Store, error) {
 
 	var err error
 	var toDatabase SqlVariant
 	switch dbDriver {
 	case "mysql":
-		toDatabase = NewMySqlVariant(username, password, host, port, dbName, caCert)
+		toDatabase = NewMySqlVariant(username, password, host, port, dbName, caCert, skipHostnameValidation)
 	case "postgres":
 		toDatabase = NewPostgresVariant(username, password, host, port, dbName, caCert)
 	default:
