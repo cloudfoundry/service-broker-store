@@ -1,20 +1,45 @@
 package brokerstore_test
 
 import (
-	"code.cloudfoundry.org/lager"
-	"code.cloudfoundry.org/lager/lagertest"
-	"code.cloudfoundry.org/service-broker-store/brokerstore"
-	"code.cloudfoundry.org/service-broker-store/brokerstore/brokerstorefakes"
-
 	"errors"
 	"time"
 
 	"code.cloudfoundry.org/goshims/sqlshim/sql_fake"
+	"code.cloudfoundry.org/lager"
+	"code.cloudfoundry.org/lager/lagertest"
+	"code.cloudfoundry.org/service-broker-store/brokerstore"
+	"code.cloudfoundry.org/service-broker-store/brokerstore/brokerstorefakes"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 const exampleCaCert = `
+-----BEGIN CERTIFICATE-----
+MIID2DCCAsACCQC88dmUPz7itjANBgkqhkiG9w0BAQsFADCBrTELMAkGA1UEBhMC
+VVMxEzARBgNVBAgMCkNhbGlmb3JuaWExFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28x
+FjAUBgNVBAoMDUNsb3VkIEZvdW5kcnkxDjAMBgNVBAsMBVBlcnNpMRkwFwYDVQQD
+DBB0ZXN0LmV4YW1wbGUuY29tMS4wLAYJKoZIhvcNAQkBFh9jZi1kaWVnby1wZXJz
+aXN0ZW5jZUBwaXZvdGFsLmlvMB4XDTE4MTAyMzE4MTk1M1oXDTIzMTAyMjE4MTk1
+M1owga0xCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQH
+DA1TYW4gRnJhbmNpc2NvMRYwFAYDVQQKDA1DbG91ZCBGb3VuZHJ5MQ4wDAYDVQQL
+DAVQZXJzaTEZMBcGA1UEAwwQdGVzdC5leGFtcGxlLmNvbTEuMCwGCSqGSIb3DQEJ
+ARYfY2YtZGllZ28tcGVyc2lzdGVuY2VAcGl2b3RhbC5pbzCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBALmUTmXKhaDCr5e2b3QBMcBn7fhd8+3RO74jCrJs
+q2mMf6oDMOVWpTSmnbOTUCk36w27EGUs1iZvaJyfU8S3V7bHTt39wGZIwskaLU9W
+hE6FLyHL0ABcNPzyumvpKOEOSocOr0MXANVwrsH9aZB7Ot0/QqPvcx3klP6adQfU
+oF3HCsEn5Mc2eMK+IpOpWWP1efz6ognSfIa0SmGlE7U+Jk+cviSxYjJZhWnXXy6V
+P1eG60VPkq7ktE6r3YX0eY0tm8LTvuqEcF5QkuBvniZZDv1cYYEkqGufG9/hDEvT
+hY8o9y975fW0s8NkBBvKq1YAVvhC8Oa2cCz9Hmx5zVh0sh0CAwEAATANBgkqhkiG
+9w0BAQsFAAOCAQEADOopynhWN7+UOZTvxX9g/4znUeHYsgXV/YKUsMIih5LxzyeT
+1+RNgxYnPauyQ2csyVxrZWbZJb0aRjAlATEZVeqNMXWk1fc6jIu8a+DbV50BDRBh
+b7MRot+WMr/w1XU1AXLj6Rt3wixBFaGkKv8Y0HqKfHby1MeayWoX0WLDaoqryuET
+BeEUUgWE+8mZKufrqBTemmghYLRsZ96QEnjtcxsZaM5SYJcY8J22eoWQdrMBN+DS
+tfI7SNG93JqTQph7zO1BnVZ/vxyNzE9kTZfhDF+tgxEc0NGgcxAB6k7B4vOtMhwg
+wBgDSO4e3/Sy3VrtIgl1SYcf+7Bse6HiVy1BPg==
+-----END CERTIFICATE-----
+`
+
+const expiredCert = `
 -----BEGIN CERTIFICATE-----
 MIIGOTCCBCGgAwIBAgIJAOE/vJd8EB24MA0GCSqGSIb3DQEBBQUAMIGyMQswCQYD
 VQQGEwJGUjEPMA0GA1UECAwGQWxzYWNlMRMwEQYDVQQHDApTdHJhc2JvdXJnMRgw

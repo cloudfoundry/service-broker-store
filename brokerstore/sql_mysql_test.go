@@ -3,6 +3,7 @@ package brokerstore_test
 import (
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/pem"
 	"errors"
 
 	"code.cloudfoundry.org/goshims/mysqlshim/mysql_fake"
@@ -177,6 +178,42 @@ var _ = Describe("MysqlVariant", func() {
 		It("doesn't fail", func() {
 			err := database.Close()
 			Expect(err).NotTo(HaveOccurred())
+		})
+	})
+
+	Describe("VerifyCertificatesIgnoreHostname", func() {
+		BeforeEach(func() {
+			caCertPool = x509.NewCertPool()
+			ok := caCertPool.AppendCertsFromPEM([]byte(exampleCaCert))
+			Expect(ok).To(BeTrue())
+		})
+
+		It("verifies that provided certificates are valid", func() {
+			block, _ := pem.Decode([]byte(exampleCaCert))
+			err := brokerstore.VerifyCertificatesIgnoreHostname([][]byte{
+				block.Bytes,
+			}, caCertPool)
+			Expect(err).NotTo(HaveOccurred())
+		})
+
+		Context("when raw certs are not parsable", func() {
+			It("returns an error", func() {
+				err := brokerstore.VerifyCertificatesIgnoreHostname([][]byte{
+					[]byte("foo"),
+					[]byte("bar"),
+				}, nil)
+				Expect(err.Error()).To(ContainSubstring("tls: failed to parse certificate from server: asn1: structure error: tags don't match"))
+			})
+		})
+
+		Context("when verifying an expired cert", func() {
+			It("returns an error", func() {
+				block, _ := pem.Decode([]byte(expiredCert))
+				err := brokerstore.VerifyCertificatesIgnoreHostname([][]byte{
+					block.Bytes,
+				}, caCertPool)
+				Expect(err.Error()).To(ContainSubstring("x509: certificate has expired or is not yet valid"))
+			})
 		})
 	})
 })
