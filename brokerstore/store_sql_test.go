@@ -62,7 +62,7 @@ var _ = Describe("SqlStore", func() {
 		db, mock, err = sqlmock.New()
 		Expect(err).ToNot(HaveOccurred())
 
-		sqlStore, err = brokerstore.NewSqlStoreWithDatabase(logger, brokerstorefakes.FakeSQLMockConnection{db})
+		sqlStore, err = brokerstore.NewSqlStoreWithDatabase(logger, brokerstorefakes.FakeSQLMockConnection{SqlDB: db})
 		Expect(err).ToNot(HaveOccurred())
 	})
 
