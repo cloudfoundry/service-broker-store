@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	"code.cloudfoundry.org/goshims/sqlshim/sql_fake"
-	"code.cloudfoundry.org/service-broker-store/brokerstore/brokerstorefakes"
+	"code.cloudfoundry.org/service-broker-store/brokerstorefakes"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
