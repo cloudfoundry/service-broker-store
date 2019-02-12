@@ -37,7 +37,8 @@ func (a redactedStuff) Match(v driver.Value) bool {
 
 var _ = Describe("SqlStore", func() {
 	var (
-		store, sqlStore                                                  brokerstore.Store
+		store                                                            brokerstore.Store
+		sqlStore                                                         *brokerstore.SqlStore
 		logger                                                           lager.Logger
 		fakeSqlDb                                                        = &sql_fake.FakeSqlDB{}
 		fakeVariant                                                      = &brokerstorefakes.FakeSqlVariant{}
@@ -62,8 +63,10 @@ var _ = Describe("SqlStore", func() {
 		db, mock, err = sqlmock.New()
 		Expect(err).ToNot(HaveOccurred())
 
-		sqlStore, err = brokerstore.NewSqlStoreWithDatabase(logger, brokerstorefakes.FakeSQLMockConnection{SqlDB: db})
-		Expect(err).ToNot(HaveOccurred())
+		var ok bool
+		sqlStore, ok = store.(*brokerstore.SqlStore)
+		Expect(ok).To(BeTrue())
+		sqlStore.Database = brokerstorefakes.FakeSQLMockConnection{SqlDB: db}
 	})
 
 	It("should open a db connection", func() {

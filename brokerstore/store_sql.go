@@ -42,10 +42,7 @@ func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (Store, 
 		return nil, err
 	}
 
-	return NewSqlStoreWithDatabase(logger, database)
-}
 
-func NewSqlStoreWithDatabase(logger lager.Logger, database SqlConnection) (Store, error) {
 	return &SqlStore{
 		Database: database,
 	}, nil
