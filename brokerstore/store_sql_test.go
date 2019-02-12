@@ -1,6 +1,8 @@
 package brokerstore_test
 
 import (
+	"errors"
+
 	"code.cloudfoundry.org/lager"
 	"code.cloudfoundry.org/lager/lagertest"
 	"code.cloudfoundry.org/service-broker-store/brokerstore"
@@ -61,8 +63,7 @@ var _ = Describe("SqlStore", func() {
 		fakeVariant.FlavorifyStub = func(query string) string {
 			return query
 		}
-		store, err = brokerstore.NewSqlStoreWithVariant(logger, fakeVariant)
-		Expect(err).ToNot(HaveOccurred())
+		store, _ = brokerstore.NewSqlStoreWithVariant(logger, fakeVariant)
 		db, mock, err = sqlmock.New()
 		Expect(err).ToNot(HaveOccurred())
 
@@ -80,6 +81,60 @@ var _ = Describe("SqlStore", func() {
 		Expect(fakeSqlDb.ExecCallCount()).To(BeNumerically(">=", 2))
 		Expect(fakeSqlDb.ExecArgsForCall(0)).To(ContainSubstring("CREATE TABLE IF NOT EXISTS service_instances"))
 		Expect(fakeSqlDb.ExecArgsForCall(1)).To(ContainSubstring("CREATE TABLE IF NOT EXISTS service_bindings"))
+	})
+
+	Describe("IsRetired", func() {
+		var (
+			retired bool
+			err     error
+
+			columns []string
+			rows    *sqlmock.Rows
+		)
+
+		BeforeEach(func() {
+			columns = []string{"id", "value"}
+
+			rows = sqlmock.NewRows(columns)
+		})
+
+		JustBeforeEach(func() {
+			retired, err = sqlStore.IsRetired()
+		})
+
+		Context("given the store is still active", func() {
+			BeforeEach(func() {
+				mock.ExpectQuery("SELECT id, value FROM service_instances WHERE id = ?").WithArgs("migrated-to-credhub").WillReturnRows(rows)
+			})
+
+			It("should return a store and no error", func() {
+				Expect(err).NotTo(HaveOccurred())
+				Expect(retired).To(BeFalse())
+			})
+		})
+
+		Context("given the store is retired", func() {
+			BeforeEach(func() {
+				rows.AddRow("migrated-to-credhub", "true")
+
+				mock.ExpectQuery("SELECT id, value FROM service_instances WHERE id = ?").WithArgs("migrated-to-credhub").WillReturnRows(rows)
+			})
+
+			It("should return an error", func() {
+				Expect(err).NotTo(HaveOccurred())
+				Expect(retired).To(BeTrue())
+			})
+		})
+
+		Context("given the retired check fails", func() {
+			BeforeEach(func() {
+				mock.ExpectQuery("SELECT id, value FROM service_instances WHERE id = ?").WithArgs("migrated-to-credhub").WillReturnError(errors.New("database-badness"))
+			})
+
+			It("should return the error from the database", func() {
+				Expect(err).To(MatchError("database-badness"))
+			})
+		})
 	})
 
 	Describe("Restore", func() {

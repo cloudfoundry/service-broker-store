@@ -16,7 +16,6 @@ type SqlStore struct {
 }
 
 func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, dbName, caCert string, skipHostnameValidation bool) (Store, error) {
-
 	var err error
 	var toDatabase SqlVariant
 	switch dbDriver {
@@ -29,10 +28,25 @@ func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, 
 		logger.Error("db-driver-unrecognized", err)
 		return nil, err
 	}
-	return NewSqlStoreWithVariant(logger, toDatabase)
+
+	store, err := NewSqlStoreWithVariant(logger, toDatabase)
+	if err != nil {
+		return nil, err
+	}
+
+	retired, err := store.IsRetired()
+	if err != nil {
+		return nil, err
+	}
+
+	if retired {
+		return nil, errors.New("database-migrated-to-credhub")
+	}
+
+	return store, nil
 }
 
-func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (Store, error) {
+func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (*SqlStore, error) {
 	database := NewSqlConnection(toDatabase)
 
 	err := initialize(logger, database)
@@ -41,7 +55,6 @@ func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (Store, 
 		logger.Error("sql-failed-to-initialize-database", err)
 		return nil, err
 	}
-
 
 	return &SqlStore{
 		Database: database,
@@ -76,6 +89,18 @@ func initialize(logger lager.Logger, db SqlConnection) error {
 			)
 		`)
 	return err
+}
+
+func (s *SqlStore) IsRetired() (bool, error) {
+	var id, value string
+
+	if result := s.Database.QueryRow("SELECT id, value FROM service_instances WHERE id = ?", "migrated-to-credhub").Scan(&id, &value); result == nil {
+		return true, nil
+	} else if result == sql.ErrNoRows {
+		return false, nil
+	} else {
+		return false, result
+	}
 }
 
 func (s *SqlStore) Restore(logger lager.Logger) error {
