@@ -40,8 +40,8 @@ var _ = Describe("SqlStore", func() {
 		store                                                            brokerstore.Store
 		sqlStore                                                         *brokerstore.SqlStore
 		logger                                                           lager.Logger
-		fakeSqlDb                                                        = &sql_fake.FakeSqlDB{}
-		fakeVariant                                                      = &brokerstorefakes.FakeSqlVariant{}
+		fakeSqlDb                                                        *sql_fake.FakeSqlDB
+		fakeVariant                                                      *brokerstorefakes.FakeSqlVariant
 		err                                                              error
 		bindingID, serviceID, planID, orgGUID, spaceGUID, appGUID, share string
 		serviceInstance                                                  brokerstore.ServiceInstance
@@ -54,6 +54,9 @@ var _ = Describe("SqlStore", func() {
 
 	BeforeEach(func() {
 		logger = lagertest.NewTestLogger("test-broker")
+
+		fakeSqlDb = &sql_fake.FakeSqlDB{}
+		fakeVariant = &brokerstorefakes.FakeSqlVariant{}
 		fakeVariant.ConnectReturns(fakeSqlDb, nil)
 		fakeVariant.FlavorifyStub = func(query string) string {
 			return query
