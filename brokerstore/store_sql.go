@@ -56,7 +56,6 @@ func initialize(logger lager.Logger, db SqlConnection) error {
 	var err error
 	err = db.Connect(logger)
 	if err != nil {
-		logger.Error("sql-failed-to-connect", err)
 		return err
 	}
 
