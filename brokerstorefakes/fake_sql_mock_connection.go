@@ -12,7 +12,3 @@ type FakeSQLMockConnection struct {
 func (fake FakeSQLMockConnection) Connect(logger lager.Logger) error {
 	return nil
 }
-
-func (fake FakeSQLMockConnection) Migrated() (bool, error) {
-	return false, nil
-}
