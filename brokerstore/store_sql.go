@@ -15,7 +15,7 @@ type SqlStore struct {
 	Database  SqlConnection
 }
 
-func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, dbName, caCert string, skipHostnameValidation bool) (Store, error) {
+func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, dbName, caCert string, skipHostnameValidation bool) (*SqlStore, error) {
 	var err error
 	var toDatabase SqlVariant
 	switch dbDriver {
