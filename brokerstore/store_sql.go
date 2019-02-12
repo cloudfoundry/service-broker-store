@@ -91,6 +91,15 @@ func initialize(logger lager.Logger, db SqlConnection) error {
 	return err
 }
 
+func (s *SqlStore) Retire() error {
+	_, err := s.Database.Exec("INSERT INTO service_instances (id, value) VALUES (?, ?)", "migrated-to-credhub", "true")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (s *SqlStore) IsRetired() (bool, error) {
 	var id, value string
 

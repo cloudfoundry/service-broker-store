@@ -83,6 +83,41 @@ var _ = Describe("SqlStore", func() {
 		Expect(fakeSqlDb.ExecArgsForCall(1)).To(ContainSubstring("CREATE TABLE IF NOT EXISTS service_bindings"))
 	})
 
+	Describe("Retire", func() {
+		var (
+			err error
+		)
+
+		JustBeforeEach(func() {
+			err = sqlStore.Retire()
+		})
+
+		Context("when the SQL insertion succeeds", func() {
+			BeforeEach(func() {
+				result := sqlmock.NewResult(1, 1)
+				mock.ExpectExec("INSERT INTO service_instances").WithArgs("migrated-to-credhub", "true").WillReturnResult(result)
+			})
+
+			It("should succeed", func() {
+				Expect(err).NotTo(HaveOccurred())
+			})
+
+			It("should insert the migration flag into the service_instances table", func() {
+				Expect(mock.ExpectationsWereMet()).Should(Succeed())
+			})
+		})
+
+		Context("when the SQL insertion fails", func() {
+			BeforeEach(func() {
+				mock.ExpectExec("INSERT INTO service_instances").WithArgs("migrated-to-credhub", "true").WillReturnError(errors.New("nope"))
+			})
+
+			It("should return the error", func() {
+				Expect(err).To(MatchError("nope"))
+			})
+		})
+	})
+
 	Describe("IsRetired", func() {
 		var (
 			retired bool
