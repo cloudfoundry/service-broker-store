@@ -23,17 +23,6 @@ type FakeSqlVariant struct {
 		result1 sqlshim.SqlDB
 		result2 error
 	}
-	MigratedStub        func() (bool, error)
-	migratedMutex       sync.RWMutex
-	migratedArgsForCall []struct{}
-	migratedReturns     struct {
-		result1 bool
-		result2 error
-	}
-	migratedReturnsOnCall map[int]struct {
-		result1 bool
-		result2 error
-	}
 	FlavorifyStub        func(query string) string
 	flavorifyMutex       sync.RWMutex
 	flavorifyArgsForCall []struct {
@@ -105,49 +94,6 @@ func (fake *FakeSqlVariant) ConnectReturnsOnCall(i int, result1 sqlshim.SqlDB, r
 	}
 	fake.connectReturnsOnCall[i] = struct {
 		result1 sqlshim.SqlDB
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeSqlVariant) Migrated() (bool, error) {
-	fake.migratedMutex.Lock()
-	ret, specificReturn := fake.migratedReturnsOnCall[len(fake.migratedArgsForCall)]
-	fake.migratedArgsForCall = append(fake.migratedArgsForCall, struct{}{})
-	fake.recordInvocation("Migrated", []interface{}{})
-	fake.migratedMutex.Unlock()
-	if fake.MigratedStub != nil {
-		return fake.MigratedStub()
-	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.migratedReturns.result1, fake.migratedReturns.result2
-}
-
-func (fake *FakeSqlVariant) MigratedCallCount() int {
-	fake.migratedMutex.RLock()
-	defer fake.migratedMutex.RUnlock()
-	return len(fake.migratedArgsForCall)
-}
-
-func (fake *FakeSqlVariant) MigratedReturns(result1 bool, result2 error) {
-	fake.MigratedStub = nil
-	fake.migratedReturns = struct {
-		result1 bool
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeSqlVariant) MigratedReturnsOnCall(i int, result1 bool, result2 error) {
-	fake.MigratedStub = nil
-	if fake.migratedReturnsOnCall == nil {
-		fake.migratedReturnsOnCall = make(map[int]struct {
-			result1 bool
-			result2 error
-		})
-	}
-	fake.migratedReturnsOnCall[i] = struct {
-		result1 bool
 		result2 error
 	}{result1, result2}
 }
@@ -245,8 +191,6 @@ func (fake *FakeSqlVariant) Invocations() map[string][][]interface{} {
 	defer fake.invocationsMutex.RUnlock()
 	fake.connectMutex.RLock()
 	defer fake.connectMutex.RUnlock()
-	fake.migratedMutex.RLock()
-	defer fake.migratedMutex.RUnlock()
 	fake.flavorifyMutex.RLock()
 	defer fake.flavorifyMutex.RUnlock()
 	fake.closeMutex.RLock()

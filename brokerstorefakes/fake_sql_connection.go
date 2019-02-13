@@ -23,17 +23,6 @@ type FakeSqlConnection struct {
 	connectReturnsOnCall map[int]struct {
 		result1 error
 	}
-	MigratedStub        func() (bool, error)
-	migratedMutex       sync.RWMutex
-	migratedArgsForCall []struct{}
-	migratedReturns     struct {
-		result1 bool
-		result2 error
-	}
-	migratedReturnsOnCall map[int]struct {
-		result1 bool
-		result2 error
-	}
 	PingStub        func() error
 	pingMutex       sync.RWMutex
 	pingArgsForCall []struct{}
@@ -199,49 +188,6 @@ func (fake *FakeSqlConnection) ConnectReturnsOnCall(i int, result1 error) {
 	fake.connectReturnsOnCall[i] = struct {
 		result1 error
 	}{result1}
-}
-
-func (fake *FakeSqlConnection) Migrated() (bool, error) {
-	fake.migratedMutex.Lock()
-	ret, specificReturn := fake.migratedReturnsOnCall[len(fake.migratedArgsForCall)]
-	fake.migratedArgsForCall = append(fake.migratedArgsForCall, struct{}{})
-	fake.recordInvocation("Migrated", []interface{}{})
-	fake.migratedMutex.Unlock()
-	if fake.MigratedStub != nil {
-		return fake.MigratedStub()
-	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.migratedReturns.result1, fake.migratedReturns.result2
-}
-
-func (fake *FakeSqlConnection) MigratedCallCount() int {
-	fake.migratedMutex.RLock()
-	defer fake.migratedMutex.RUnlock()
-	return len(fake.migratedArgsForCall)
-}
-
-func (fake *FakeSqlConnection) MigratedReturns(result1 bool, result2 error) {
-	fake.MigratedStub = nil
-	fake.migratedReturns = struct {
-		result1 bool
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeSqlConnection) MigratedReturnsOnCall(i int, result1 bool, result2 error) {
-	fake.MigratedStub = nil
-	if fake.migratedReturnsOnCall == nil {
-		fake.migratedReturnsOnCall = make(map[int]struct {
-			result1 bool
-			result2 error
-		})
-	}
-	fake.migratedReturnsOnCall[i] = struct {
-		result1 bool
-		result2 error
-	}{result1, result2}
 }
 
 func (fake *FakeSqlConnection) Ping() error {
@@ -728,8 +674,6 @@ func (fake *FakeSqlConnection) Invocations() map[string][][]interface{} {
 	defer fake.invocationsMutex.RUnlock()
 	fake.connectMutex.RLock()
 	defer fake.connectMutex.RUnlock()
-	fake.migratedMutex.RLock()
-	defer fake.migratedMutex.RUnlock()
 	fake.pingMutex.RLock()
 	defer fake.pingMutex.RUnlock()
 	fake.closeMutex.RLock()
