@@ -18,30 +18,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//type Store interface {
-//	RetrieveInstanceDetails(id string) (ServiceInstance, error)
-//	RetrieveBindingDetails(id string) (brokerapi.BindDetails, error)
-//
-//	CreateInstanceDetails(id string, details ServiceInstance) error
-//	CreateBindingDetails(id string, details brokerapi.BindDetails) error
-//
-//	DeleteInstanceDetails(id string) error
-//	DeleteBindingDetails(id string) error
-//
-//	IsInstanceConflict(id string, details ServiceInstance) bool
-//	IsBindingConflict(id string, details brokerapi.BindDetails) bool
-//
-//	Restore(logger lager.Logger) error
-//	Save(logger lager.Logger) error
-//	Cleanup() error
-//}
-
 var _ = Describe("CredhubStore", func() {
-
 	var (
 		logger      lager.Logger
 		fakeCredhub *credhub_fakes.FakeCredhub
-		store       Store
+		store       *CredhubStore
 		err         error
 	)
 
@@ -258,57 +239,6 @@ var _ = Describe("CredhubStore", func() {
 		})
 	})
 
-	Context("#CreateBindingDetails", func() {
-		var (
-			id           string
-			bindDetails  brokerapi.BindDetails
-			expectedJSON string
-		)
-
-		BeforeEach(func() {
-			id = "12345"
-			bindDetails = brokerapi.BindDetails{
-				AppGUID:       "app-guid",
-				PlanID:        "plan-id",
-				ServiceID:     "service-id",
-				BindResource:  &brokerapi.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
-				RawParameters: json.RawMessage([]byte(`{"password":"a-password","username":"a-username"}`)),
-			}
-			expectedJSON = `{
-					"app_guid":      "app-guid",
-					"plan_id":       "plan-id",
-					"service_id":    "service-id",
-					"bind_resource": {"app_guid": "app-guid", "route": "my-app.cf.com"},
-					"parameters":    {"username": "a-username", "password": "a-password"}
-				}`
-		})
-
-		JustBeforeEach(func() {
-			err = store.CreateBindingDetails(id, bindDetails)
-		})
-
-		It("should store it in credhub", func() {
-			Expect(err).NotTo(HaveOccurred())
-			Expect(fakeCredhub.SetJSONCallCount()).To(Equal(1))
-			id, value := fakeCredhub.SetJSONArgsForCall(0)
-			Expect(id).To(Equal("/some-store-id/12345"))
-			actualJSON, err := json.Marshal(value)
-			Expect(err).NotTo(HaveOccurred())
-			Expect(actualJSON).To(MatchJSON(expectedJSON))
-		})
-
-		Context("when SetJSON returns an error", func() {
-			BeforeEach(func() {
-				fakeCredhub.SetJSONReturns(credentials.JSON{}, errors.New("bad-set-json"))
-			})
-
-			It("should return the error", func() {
-				Expect(err).To(HaveOccurred())
-				Expect(err.Error()).To(Equal("bad-set-json"))
-			})
-		})
-	})
-
 	Context("#DeleteInstanceDetails", func() {
 		var (
 			id string
@@ -463,6 +393,70 @@ var _ = Describe("CredhubStore", func() {
 				RawParameters: json.RawMessage([]byte(`{"paramsHash": "some-other-hash"}`)),
 			})
 			Expect(isConflict).To(BeTrue())
+		})
+	})
+
+	Context("#Activate", func() {
+		JustBeforeEach(func() {
+			err = store.Activate()
+		})
+
+		It("should write the record into the store", func() {
+			Expect(err).NotTo(HaveOccurred())
+			Expect(fakeCredhub.SetValueCallCount()).To(Equal(1))
+			id, value := fakeCredhub.SetValueArgsForCall(0)
+			Expect(id).To(Equal("/some-store-id/migrated-from-sql"))
+			Expect(value).To(Equal(values.Value("true")))
+		})
+
+		Context("when the record insertion fails", func() {
+			BeforeEach(func() {
+				fakeCredhub.SetValueReturns(credentials.Value{}, errors.New("bad-set-value"))
+			})
+
+			It("should return the error from credhub", func() {
+				Expect(err).To(MatchError("bad-set-value"))
+			})
+		})
+	})
+
+	Context("#IsActivated", func() {
+		var activated bool
+
+		JustBeforeEach(func() {
+			activated, err = store.IsActivated()
+		})
+
+		Context("when the migration from SQL has run", func() {
+			BeforeEach(func() {
+				fakeCredhub.FindByPathReturns(credentials.FindResults{
+					Credentials: []credentials.Base{
+						{Name: "migrated-from-sql"},
+					},
+				}, nil)
+			})
+
+			It("should return true", func() {
+				Expect(err).NotTo(HaveOccurred())
+				Expect(activated).To(BeTrue())
+			})
+		})
+
+		Context("when the migration from SQL has not run", func() {
+			It("should return false", func() {
+				Expect(err).NotTo(HaveOccurred())
+				Expect(activated).To(BeFalse())
+			})
+		})
+
+		Context("when the record insertion fails", func() {
+			BeforeEach(func() {
+				fakeCredhub.FindByPathReturns(credentials.FindResults{}, errors.New("bad-find-by-path"))
+			})
+
+			It("should return the error from credhub", func() {
+				Expect(err).To(MatchError("bad-find-by-path"))
+			})
 		})
 	})
 })

@@ -10,21 +10,39 @@ import (
 	"github.com/pivotal-cf/brokerapi"
 )
 
-type credhubStore struct {
+type CredhubStore struct {
 	logger      lager.Logger
 	credhubShim credhub_shims.Credhub
 	storeID     string
 }
 
-func NewCredhubStore(logger lager.Logger, credhubShim credhub_shims.Credhub, storeID string) Store {
-	return &credhubStore{
+func NewCredhubStore(logger lager.Logger, credhubShim credhub_shims.Credhub, storeID string) *CredhubStore {
+	return &CredhubStore{
 		logger:      logger,
 		credhubShim: credhubShim,
 		storeID:     storeID,
 	}
 }
 
-func (s *credhubStore) CreateInstanceDetails(id string, details ServiceInstance) error {
+func (s *CredhubStore) Activate() error {
+	_, err := s.credhubShim.SetValue(s.namespaced("migrated-from-sql"), "true")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *CredhubStore) IsActivated() (bool, error) {
+	results, err := s.credhubShim.FindByPath(s.namespaced("migrated-from-sql"))
+	if err != nil {
+		return false, err
+	}
+
+	return len(results.Credentials) > 0, nil
+}
+
+func (s *CredhubStore) CreateInstanceDetails(id string, details ServiceInstance) error {
 	mappedDetails, err := toMap(details)
 	if err != nil {
 		return err
@@ -36,7 +54,7 @@ func (s *credhubStore) CreateInstanceDetails(id string, details ServiceInstance)
 	return nil
 }
 
-func (s *credhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, error) {
+func (s *CredhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, error) {
 	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
 		return ServiceInstance{}, err
@@ -51,7 +69,7 @@ func (s *credhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, erro
 	return serviceInstance, nil
 }
 
-func (s *credhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
+func (s *CredhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
 	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
 		return brokerapi.BindDetails{}, err
@@ -66,15 +84,15 @@ func (s *credhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails,
 	return bindDetails, nil
 }
 
-func (s *credhubStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, error) {
+func (s *CredhubStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, error) {
 	panic("Not Implemented")
 }
 
-func (s *credhubStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error) {
+func (s *CredhubStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error) {
 	panic("Not Implemented")
 }
 
-func (s *credhubStore) CreateBindingDetails(id string, details brokerapi.BindDetails) error {
+func (s *CredhubStore) CreateBindingDetails(id string, details brokerapi.BindDetails) error {
 	mappedDetails, err := toMap(details)
 	if err != nil {
 		return err
@@ -87,33 +105,33 @@ func (s *credhubStore) CreateBindingDetails(id string, details brokerapi.BindDet
 	return nil
 }
 
-func (s *credhubStore) DeleteInstanceDetails(id string) error {
+func (s *CredhubStore) DeleteInstanceDetails(id string) error {
 	return s.credhubShim.Delete(s.namespaced(id))
 }
-func (s *credhubStore) DeleteBindingDetails(id string) error {
+func (s *CredhubStore) DeleteBindingDetails(id string) error {
 	return s.credhubShim.Delete(s.namespaced(id))
 }
 
-func (s *credhubStore) IsInstanceConflict(id string, details ServiceInstance) bool {
+func (s *CredhubStore) IsInstanceConflict(id string, details ServiceInstance) bool {
 	return isInstanceConflict(s, id, details)
 }
-func (s *credhubStore) IsBindingConflict(id string, details brokerapi.BindDetails) bool {
+func (s *CredhubStore) IsBindingConflict(id string, details brokerapi.BindDetails) bool {
 	return isBindingConflict(s, id, details)
 }
 
-func (s *credhubStore) Restore(logger lager.Logger) error {
+func (s *CredhubStore) Restore(logger lager.Logger) error {
 	return nil
 }
 
-func (s *credhubStore) Save(logger lager.Logger) error {
+func (s *CredhubStore) Save(logger lager.Logger) error {
 	return nil
 }
 
-func (s *credhubStore) Cleanup() error {
+func (s *CredhubStore) Cleanup() error {
 	return nil
 }
 
-func (s *credhubStore) namespaced(id string) string {
+func (s *CredhubStore) namespaced(id string) string {
 	return fmt.Sprintf("/%s/%s", s.storeID, id)
 }
 

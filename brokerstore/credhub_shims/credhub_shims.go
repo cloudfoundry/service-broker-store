@@ -23,6 +23,9 @@ func (c *CredhubAuthShim) UaaClientCredentials(clientId, clientSecret string) au
 type Credhub interface {
 	SetJSON(name string, value values.JSON) (credentials.JSON, error)
 	GetLatestJSON(name string) (credentials.JSON, error)
+	SetValue(name string, value values.Value) (credentials.Value, error)
+	GetLatestValue(name string) (credentials.Value, error)
+	FindByPath(path string) (credentials.FindResults, error)
 	Delete(name string) error
 }
 
@@ -72,6 +75,18 @@ func (ch *CredhubShim) SetJSON(name string, value values.JSON) (credentials.JSON
 
 func (ch *CredhubShim) GetLatestJSON(name string) (credentials.JSON, error) {
 	return ch.delegate.GetLatestJSON(name)
+}
+
+func (ch *CredhubShim) SetValue(name string, value values.Value) (credentials.Value, error) {
+	return ch.delegate.SetValue(name, value)
+}
+
+func (ch *CredhubShim) GetLatestValue(name string) (credentials.Value, error) {
+	return ch.delegate.GetLatestValue(name)
+}
+
+func (ch *CredhubShim) FindByPath(path string) (credentials.FindResults, error) {
+	return ch.delegate.FindByPath(path)
 }
 
 func (ch *CredhubShim) Delete(name string) error {
