@@ -11,6 +11,7 @@ import (
 )
 
 type SqlStore struct {
+	logger    lager.Logger
 	StoreType string
 	Database  SqlConnection
 }
@@ -57,6 +58,7 @@ func NewSqlStoreWithVariant(logger lager.Logger, toDatabase SqlVariant) (*SqlSto
 	}
 
 	return &SqlStore{
+		logger:   logger,
 		Database: database,
 	}, nil
 }
@@ -125,6 +127,10 @@ func (s *SqlStore) Cleanup() error {
 }
 
 func (s *SqlStore) CreateInstanceDetails(id string, details ServiceInstance) error {
+	logger := s.logger.Session("create-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	jsonData, err := json.Marshal(details)
 	if err != nil {
 		return err
@@ -142,6 +148,10 @@ func (s *SqlStore) CreateInstanceDetails(id string, details ServiceInstance) err
 }
 
 func (s *SqlStore) RetrieveInstanceDetails(id string) (ServiceInstance, error) {
+	logger := s.logger.Session("retrieve-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	var serviceID string
 	var value []byte
 	var serviceInstance ServiceInstance
@@ -159,6 +169,10 @@ func (s *SqlStore) RetrieveInstanceDetails(id string) (ServiceInstance, error) {
 }
 
 func (s *SqlStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
+	logger := s.logger.Session("retrieve-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	var bindingID string
 	var value []byte
 	bindDetails := brokerapi.BindDetails{}
@@ -176,6 +190,10 @@ func (s *SqlStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, err
 }
 
 func (s *SqlStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, error) {
+	logger := s.logger.Session("retrieve-all-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	serviceInstances := map[string]ServiceInstance{}
 
 	rows, err := s.Database.Query("SELECT id, value FROM service_instances")
@@ -202,6 +220,10 @@ func (s *SqlStore) RetrieveAllInstanceDetails() (map[string]ServiceInstance, err
 }
 
 func (s *SqlStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error) {
+	logger := s.logger.Session("retrieve-all-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	bindingDetails := map[string]brokerapi.BindDetails{}
 
 	rows, err := s.Database.Query("SELECT id, value FROM service_bindings")
@@ -228,6 +250,10 @@ func (s *SqlStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails
 }
 
 func (s *SqlStore) CreateBindingDetails(id string, details brokerapi.BindDetails) error {
+	logger := s.logger.Session("create-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	storeDetails, err := redactBindingDetails(details)
 
 	jsonData, err := json.Marshal(storeDetails)
@@ -242,6 +268,10 @@ func (s *SqlStore) CreateBindingDetails(id string, details brokerapi.BindDetails
 }
 
 func (s *SqlStore) DeleteInstanceDetails(id string) error {
+	logger := s.logger.Session("delete-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	_, err := s.Database.Exec("DELETE FROM service_instances WHERE id = ?", id)
 	if err != nil {
 		return err
@@ -250,6 +280,10 @@ func (s *SqlStore) DeleteInstanceDetails(id string) error {
 }
 
 func (s *SqlStore) DeleteBindingDetails(id string) error {
+	logger := s.logger.Session("delete-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	_, err := s.Database.Exec("DELETE FROM service_bindings WHERE id = ?", id)
 	if err != nil {
 		return err

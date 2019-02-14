@@ -25,6 +25,7 @@ func NewCredhubStore(logger lager.Logger, credhubShim credhub_shims.Credhub, sto
 }
 
 func (s *CredhubStore) Activate() error {
+	s.logger.Info("activating-credhub")
 	_, err := s.credhubShim.SetValue(s.namespaced("migrated-from-sql"), "true")
 	if err != nil {
 		return err
@@ -34,6 +35,10 @@ func (s *CredhubStore) Activate() error {
 }
 
 func (s *CredhubStore) IsActivated() (bool, error) {
+	logger := s.logger.Session("is-activated")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	results, err := s.credhubShim.FindByPath(s.namespaced("migrated-from-sql"))
 	if err != nil {
 		return false, err
@@ -43,6 +48,10 @@ func (s *CredhubStore) IsActivated() (bool, error) {
 }
 
 func (s *CredhubStore) CreateInstanceDetails(id string, details ServiceInstance) error {
+	logger := s.logger.Session("create-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	mappedDetails, err := toMap(details)
 	if err != nil {
 		return err
@@ -55,6 +64,10 @@ func (s *CredhubStore) CreateInstanceDetails(id string, details ServiceInstance)
 }
 
 func (s *CredhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, error) {
+	logger := s.logger.Session("retrieve-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
 		return ServiceInstance{}, err
@@ -70,6 +83,10 @@ func (s *CredhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, erro
 }
 
 func (s *CredhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
+	logger := s.logger.Session("retrieve-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
 		return brokerapi.BindDetails{}, err
@@ -93,6 +110,10 @@ func (s *CredhubStore) RetrieveAllBindingDetails() (map[string]brokerapi.BindDet
 }
 
 func (s *CredhubStore) CreateBindingDetails(id string, details brokerapi.BindDetails) error {
+	logger := s.logger.Session("create-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	mappedDetails, err := toMap(details)
 	if err != nil {
 		return err
@@ -106,9 +127,17 @@ func (s *CredhubStore) CreateBindingDetails(id string, details brokerapi.BindDet
 }
 
 func (s *CredhubStore) DeleteInstanceDetails(id string) error {
+	logger := s.logger.Session("delete-instance-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	return s.credhubShim.Delete(s.namespaced(id))
 }
 func (s *CredhubStore) DeleteBindingDetails(id string) error {
+	logger := s.logger.Session("delete-binding-details")
+	logger.Info("start")
+	defer logger.Info("end")
+
 	return s.credhubShim.Delete(s.namespaced(id))
 }
 

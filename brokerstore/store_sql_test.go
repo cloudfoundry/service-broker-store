@@ -526,6 +526,7 @@ var _ = Describe("SqlStore", func() {
 			Expect(mock.ExpectationsWereMet()).Should(Succeed())
 		})
 	})
+
 	Describe("DeleteBindingDetails", func() {
 		BeforeEach(func() {
 			Expect(err).NotTo(HaveOccurred())
