@@ -35,15 +35,6 @@ func NewSqlStore(logger lager.Logger, dbDriver, username, password, host, port, 
 		return nil, err
 	}
 
-	retired, err := store.IsRetired()
-	if err != nil {
-		return nil, err
-	}
-
-	if retired {
-		return nil, errors.New("database-migrated-to-credhub")
-	}
-
 	return store, nil
 }
 
