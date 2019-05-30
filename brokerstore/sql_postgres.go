@@ -1,6 +1,7 @@
 package brokerstore
 
 import (
+	"database/sql"
 	"fmt"
 	"strings"
 
@@ -8,12 +9,14 @@ import (
 
 	"code.cloudfoundry.org/goshims/ioutilshim"
 	"code.cloudfoundry.org/goshims/osshim"
+	"code.cloudfoundry.org/goshims/postgresshim"
 	"code.cloudfoundry.org/goshims/sqlshim"
 	"code.cloudfoundry.org/lager"
 )
 
 type postgresVariant struct {
 	sql                sqlshim.Sql
+	pg                 postgresshim.PostgreSQL
 	ioutil             ioutilshim.Ioutil
 	os                 osshim.Os
 	dbConnectionString string
@@ -72,8 +75,10 @@ func (c *postgresVariant) Connect(logger lager.Logger) (sqlshim.SqlDB, error) {
 		c.dbConnectionString = fmt.Sprintf("%s?sslmode=verify-ca&sslrootcert=%s", c.dbConnectionString, c.caCert)
 	}
 
-	sqlDB, err := c.sql.Open("postgres", c.dbConnectionString)
-	return sqlDB, err
+	conn := c.pg.ParseDSN(c.dbConnectionString)
+
+	sqlDB := sql.OpenDB(conn)
+	return sqlDB, nil
 }
 
 func (c *postgresVariant) Flavorify(query string) string {
