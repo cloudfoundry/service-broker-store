@@ -2,9 +2,9 @@ package brokerstore
 
 import (
 	"encoding/json"
+	"errors"
 	"reflect"
 
-	"code.cloudfoundry.org/goshims/ioutilshim"
 	"code.cloudfoundry.org/lager"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
 	"github.com/pivotal-cf/brokerapi"
@@ -43,9 +43,19 @@ type Store interface {
 
 func NewStore(
 	logger lager.Logger,
-	dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert string, dbSkipHostnameValidation bool,
-	credhubURL, credhubCACert, clientID, clientSecret, uaaCACert,
-	fileName string,
+	dbDriver,
+	dbUsername,
+	dbPassword,
+	dbHostname,
+	dbPort,
+	dbName,
+	dbCACert string,
+	dbSkipHostnameValidation bool,
+	credhubURL,
+	credhubCACert,
+	clientID,
+	clientSecret,
+	uaaCACert string,
 	storeID string,
 ) Store {
 	if dbDriver != "" {
@@ -60,9 +70,9 @@ func NewStore(
 			logger.Fatal("failed-creating-credhub-store", err)
 		}
 		return NewCredhubStore(logger, ch, storeID)
-	} else {
-		return NewFileStore(fileName, &ioutilshim.IoutilShim{})
 	}
+	logger.Fatal("failed-creating-broker-store", errors.New("Invalid brokerstore configuration"))
+	return nil
 }
 
 // Utility methods for storing bindings with secrets stripped out
