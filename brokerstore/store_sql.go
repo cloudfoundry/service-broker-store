@@ -282,27 +282,6 @@ func (s *SqlStore) DeleteBindingDetails(id string) error {
 	return nil
 }
 
-func (s *SqlStore) keyValueInTable(logger lager.Logger, key, value, table string) (error, bool) {
-	var queriedServiceID string
-	query := fmt.Sprintf(`SELECT %s.%s FROM %s WHERE %s.%s = ?`, table, key, table, table, key)
-	row := s.Database.QueryRow(query, value)
-	if row == nil {
-		err := fmt.Errorf("Row error!")
-		logger.Error("failed-query", err)
-		return err, true
-	}
-	err := row.Scan(&queriedServiceID)
-	if err == nil {
-		return nil, true
-	} else if err == sql.ErrNoRows {
-		return nil, false
-	}
-
-	logger.Debug("failed-query", lager.Data{"Query": query})
-	logger.Error("failed-query", err)
-	return err, true
-}
-
 func (s *SqlStore) IsInstanceConflict(id string, details ServiceInstance) bool {
 	return isInstanceConflict(s, id, details)
 }
