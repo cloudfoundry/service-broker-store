@@ -43,14 +43,6 @@ type Store interface {
 
 func NewStore(
 	logger lager.Logger,
-	dbDriver,
-	dbUsername,
-	dbPassword,
-	dbHostname,
-	dbPort,
-	dbName,
-	dbCACert string,
-	dbSkipHostnameValidation bool,
 	credhubURL,
 	credhubCACert,
 	clientID,
@@ -58,13 +50,7 @@ func NewStore(
 	uaaCACert string,
 	storeID string,
 ) Store {
-	if dbDriver != "" {
-		store, err := NewSqlStore(logger, dbDriver, dbUsername, dbPassword, dbHostname, dbPort, dbName, dbCACert, dbSkipHostnameValidation)
-		if err != nil {
-			logger.Fatal("failed-creating-sql-store", err)
-		}
-		return store
-	} else if credhubURL != "" {
+	if credhubURL != "" {
 		ch, err := credhub_shims.NewCredhubShim(credhubURL, credhubCACert, clientID, clientSecret, uaaCACert, &credhub_shims.CredhubAuthShim{})
 		if err != nil {
 			logger.Fatal("failed-creating-credhub-store", err)
