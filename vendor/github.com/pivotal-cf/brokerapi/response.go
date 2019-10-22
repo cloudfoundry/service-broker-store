@@ -15,52 +15,50 @@
 
 package brokerapi
 
-import (
-	"github.com/pivotal-cf/brokerapi/domain"
-	"github.com/pivotal-cf/brokerapi/domain/apiresponses"
-)
+type EmptyResponse struct{}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type EmptyResponse = apiresponses.EmptyResponse
+type ErrorResponse struct {
+	Error       string `json:"error,omitempty"`
+	Description string `json:"description"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type ErrorResponse = apiresponses.ErrorResponse
+type CatalogResponse struct {
+	Services []Service `json:"services"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type CatalogResponse = apiresponses.CatalogResponse
+type ProvisioningResponse struct {
+	DashboardURL  string `json:"dashboard_url,omitempty"`
+	OperationData string `json:"operation,omitempty"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type ProvisioningResponse = apiresponses.ProvisioningResponse
+type UpdateResponse struct {
+	OperationData string `json:"operation,omitempty"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type GetInstanceResponse = apiresponses.GetInstanceResponse
+type DeprovisionResponse struct {
+	OperationData string `json:"operation,omitempty"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type UpdateResponse = apiresponses.UpdateResponse
+type LastOperationResponse struct {
+	State       LastOperationState `json:"state"`
+	Description string             `json:"description,omitempty"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type DeprovisionResponse = apiresponses.DeprovisionResponse
+type ExperimentalVolumeMountBindingResponse struct {
+	Credentials     interface{}               `json:"credentials"`
+	SyslogDrainURL  string                    `json:"syslog_drain_url,omitempty"`
+	RouteServiceURL string                    `json:"route_service_url,omitempty"`
+	VolumeMounts    []ExperimentalVolumeMount `json:"volume_mounts,omitempty"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type LastOperationResponse = apiresponses.LastOperationResponse
+type ExperimentalVolumeMount struct {
+	ContainerPath string                         `json:"container_path"`
+	Mode          string                         `json:"mode"`
+	Private       ExperimentalVolumeMountPrivate `json:"private"`
+}
 
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type AsyncBindResponse = apiresponses.AsyncBindResponse
-
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type BindingResponse = apiresponses.BindingResponse
-
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type GetBindingResponse = apiresponses.GetBindingResponse
-
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type UnbindResponse = apiresponses.UnbindResponse
-
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain/apiresponses
-type ExperimentalVolumeMountBindingResponse = apiresponses.ExperimentalVolumeMountBindingResponse
-
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain
-type ExperimentalVolumeMount = domain.ExperimentalVolumeMount
-
-//Deprecated: Use github.com/pivotal-cf/brokerapi/domain
-type ExperimentalVolumeMountPrivate = domain.ExperimentalVolumeMountPrivate
+type ExperimentalVolumeMountPrivate struct {
+	Driver  string `json:"driver"`
+	GroupID string `json:"group_id"`
+	Config  string `json:"config"`
+}

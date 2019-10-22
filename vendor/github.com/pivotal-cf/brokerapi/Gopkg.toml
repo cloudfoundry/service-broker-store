@@ -31,24 +31,16 @@
 
 [[constraint]]
   name = "github.com/gorilla/mux"
-  version = "^1.6.1"
+  version = "1.6.0"
 
 [[constraint]]
   name = "github.com/onsi/ginkgo"
-  version = "^1.10.2"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/onsi/gomega"
-  version = "^1.6.0"
+  branch = "master"
 
 [[constraint]]
-  version = "^1.2.0"
+  branch = "master"
   name = "github.com/pborman/uuid"
-
-[[constraint]]
-  name = "github.com/pkg/errors"
-  version = "^0.8.0"
-
-[[override]]
-  name = "gopkg.in/fsnotify.v1"
-  source = "gopkg.in/fsnotify/fsnotify.v1"
