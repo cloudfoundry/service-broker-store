@@ -12,7 +12,7 @@ require (
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/hashicorp/go-version v1.2.0 // indirect
 	github.com/onsi/ginkgo v1.10.2
-	github.com/onsi/gomega v1.7.0
+	github.com/onsi/gomega v1.8.0
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/pivotal-cf/brokerapi v2.0.2+incompatible
 	github.com/pkg/errors v0.8.1 // indirect
