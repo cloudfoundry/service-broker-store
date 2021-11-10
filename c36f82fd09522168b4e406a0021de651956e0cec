@@ -1,0 +1,7 @@
+{
+  "pr": "40",
+  "repository": "cloudfoundry/service-broker-store",
+  "base_branch": "master",
+  "head_branch": "dependabot/go_modules/github.com/onsi/ginkgo-1.16.5",
+  "branch_tip": "c36f82fd09522168b4e406a0021de651956e0cec"
+}
