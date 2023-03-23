@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/credhub-cli v0.0.0-20200227190202-0fffecb4557e
 	code.cloudfoundry.org/lager v2.0.0+incompatible
 	github.com/onsi/ginkgo v1.16.5
-	github.com/onsi/gomega v1.27.4
+	github.com/onsi/gomega v1.27.5
 	github.com/pivotal-cf/brokerapi v6.4.2+incompatible
 	golang.org/x/crypto v0.7.0
 )
