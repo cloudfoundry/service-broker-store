@@ -5,9 +5,10 @@ import (
 	"fmt"
 
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
-	"code.cloudfoundry.org/lager"
+	"code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
-	"github.com/pivotal-cf/brokerapi"
+	"github.com/pivotal-cf/brokerapi/v9"
+	"github.com/pivotal-cf/brokerapi/v9/domain"
 )
 
 type CredhubStore struct {
@@ -82,20 +83,20 @@ func (s *CredhubStore) RetrieveInstanceDetails(id string) (ServiceInstance, erro
 	return serviceInstance, nil
 }
 
-func (s *CredhubStore) RetrieveBindingDetails(id string) (brokerapi.BindDetails, error) {
+func (s *CredhubStore) RetrieveBindingDetails(id string) (domain.BindDetails, error) {
 	logger := s.logger.Session("retrieve-binding-details")
 	logger.Info("start")
 	defer logger.Info("end")
 
 	creds, err := s.credhubShim.GetLatestJSON(s.namespaced(id))
 	if err != nil {
-		return brokerapi.BindDetails{}, err
+		return domain.BindDetails{}, err
 	}
 
 	var bindDetails brokerapi.BindDetails
 	err = toStruct(creds, &bindDetails)
 	if err != nil {
-		return brokerapi.BindDetails{}, err
+		return domain.BindDetails{}, err
 	}
 
 	return bindDetails, nil

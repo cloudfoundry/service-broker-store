@@ -9,11 +9,11 @@ import (
 )
 
 type FakeCredhubAuth struct {
-	UaaClientCredentialsStub        func(clientId, clientSecret string) auth.Builder
+	UaaClientCredentialsStub        func(string, string) auth.Builder
 	uaaClientCredentialsMutex       sync.RWMutex
 	uaaClientCredentialsArgsForCall []struct {
-		clientId     string
-		clientSecret string
+		arg1 string
+		arg2 string
 	}
 	uaaClientCredentialsReturns struct {
 		result1 auth.Builder
@@ -25,22 +25,24 @@ type FakeCredhubAuth struct {
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakeCredhubAuth) UaaClientCredentials(clientId string, clientSecret string) auth.Builder {
+func (fake *FakeCredhubAuth) UaaClientCredentials(arg1 string, arg2 string) auth.Builder {
 	fake.uaaClientCredentialsMutex.Lock()
 	ret, specificReturn := fake.uaaClientCredentialsReturnsOnCall[len(fake.uaaClientCredentialsArgsForCall)]
 	fake.uaaClientCredentialsArgsForCall = append(fake.uaaClientCredentialsArgsForCall, struct {
-		clientId     string
-		clientSecret string
-	}{clientId, clientSecret})
-	fake.recordInvocation("UaaClientCredentials", []interface{}{clientId, clientSecret})
+		arg1 string
+		arg2 string
+	}{arg1, arg2})
+	stub := fake.UaaClientCredentialsStub
+	fakeReturns := fake.uaaClientCredentialsReturns
+	fake.recordInvocation("UaaClientCredentials", []interface{}{arg1, arg2})
 	fake.uaaClientCredentialsMutex.Unlock()
-	if fake.UaaClientCredentialsStub != nil {
-		return fake.UaaClientCredentialsStub(clientId, clientSecret)
+	if stub != nil {
+		return stub(arg1, arg2)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	return fake.uaaClientCredentialsReturns.result1
+	return fakeReturns.result1
 }
 
 func (fake *FakeCredhubAuth) UaaClientCredentialsCallCount() int {
@@ -49,13 +51,22 @@ func (fake *FakeCredhubAuth) UaaClientCredentialsCallCount() int {
 	return len(fake.uaaClientCredentialsArgsForCall)
 }
 
+func (fake *FakeCredhubAuth) UaaClientCredentialsCalls(stub func(string, string) auth.Builder) {
+	fake.uaaClientCredentialsMutex.Lock()
+	defer fake.uaaClientCredentialsMutex.Unlock()
+	fake.UaaClientCredentialsStub = stub
+}
+
 func (fake *FakeCredhubAuth) UaaClientCredentialsArgsForCall(i int) (string, string) {
 	fake.uaaClientCredentialsMutex.RLock()
 	defer fake.uaaClientCredentialsMutex.RUnlock()
-	return fake.uaaClientCredentialsArgsForCall[i].clientId, fake.uaaClientCredentialsArgsForCall[i].clientSecret
+	argsForCall := fake.uaaClientCredentialsArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2
 }
 
 func (fake *FakeCredhubAuth) UaaClientCredentialsReturns(result1 auth.Builder) {
+	fake.uaaClientCredentialsMutex.Lock()
+	defer fake.uaaClientCredentialsMutex.Unlock()
 	fake.UaaClientCredentialsStub = nil
 	fake.uaaClientCredentialsReturns = struct {
 		result1 auth.Builder
@@ -63,6 +74,8 @@ func (fake *FakeCredhubAuth) UaaClientCredentialsReturns(result1 auth.Builder) {
 }
 
 func (fake *FakeCredhubAuth) UaaClientCredentialsReturnsOnCall(i int, result1 auth.Builder) {
+	fake.uaaClientCredentialsMutex.Lock()
+	defer fake.uaaClientCredentialsMutex.Unlock()
 	fake.UaaClientCredentialsStub = nil
 	if fake.uaaClientCredentialsReturnsOnCall == nil {
 		fake.uaaClientCredentialsReturnsOnCall = make(map[int]struct {

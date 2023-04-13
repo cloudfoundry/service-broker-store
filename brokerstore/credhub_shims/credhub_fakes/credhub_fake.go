@@ -10,64 +10,21 @@ import (
 )
 
 type FakeCredhub struct {
-	SetJSONStub        func(name string, value values.JSON) (credentials.JSON, error)
-	setJSONMutex       sync.RWMutex
-	setJSONArgsForCall []struct {
-		name  string
-		value values.JSON
+	DeleteStub        func(string) error
+	deleteMutex       sync.RWMutex
+	deleteArgsForCall []struct {
+		arg1 string
 	}
-	setJSONReturns struct {
-		result1 credentials.JSON
-		result2 error
+	deleteReturns struct {
+		result1 error
 	}
-	setJSONReturnsOnCall map[int]struct {
-		result1 credentials.JSON
-		result2 error
+	deleteReturnsOnCall map[int]struct {
+		result1 error
 	}
-	GetLatestJSONStub        func(name string) (credentials.JSON, error)
-	getLatestJSONMutex       sync.RWMutex
-	getLatestJSONArgsForCall []struct {
-		name string
-	}
-	getLatestJSONReturns struct {
-		result1 credentials.JSON
-		result2 error
-	}
-	getLatestJSONReturnsOnCall map[int]struct {
-		result1 credentials.JSON
-		result2 error
-	}
-	SetValueStub        func(name string, value values.Value) (credentials.Value, error)
-	setValueMutex       sync.RWMutex
-	setValueArgsForCall []struct {
-		name  string
-		value values.Value
-	}
-	setValueReturns struct {
-		result1 credentials.Value
-		result2 error
-	}
-	setValueReturnsOnCall map[int]struct {
-		result1 credentials.Value
-		result2 error
-	}
-	GetLatestValueStub        func(name string) (credentials.Value, error)
-	getLatestValueMutex       sync.RWMutex
-	getLatestValueArgsForCall []struct {
-		name string
-	}
-	getLatestValueReturns struct {
-		result1 credentials.Value
-		result2 error
-	}
-	getLatestValueReturnsOnCall map[int]struct {
-		result1 credentials.Value
-		result2 error
-	}
-	FindByPathStub        func(path string) (credentials.FindResults, error)
+	FindByPathStub        func(string) (credentials.FindResults, error)
 	findByPathMutex       sync.RWMutex
 	findByPathArgsForCall []struct {
-		path string
+		arg1 string
 	}
 	findByPathReturns struct {
 		result1 credentials.FindResults
@@ -77,242 +34,142 @@ type FakeCredhub struct {
 		result1 credentials.FindResults
 		result2 error
 	}
-	DeleteStub        func(name string) error
-	deleteMutex       sync.RWMutex
-	deleteArgsForCall []struct {
-		name string
+	GetLatestJSONStub        func(string) (credentials.JSON, error)
+	getLatestJSONMutex       sync.RWMutex
+	getLatestJSONArgsForCall []struct {
+		arg1 string
 	}
-	deleteReturns struct {
-		result1 error
+	getLatestJSONReturns struct {
+		result1 credentials.JSON
+		result2 error
 	}
-	deleteReturnsOnCall map[int]struct {
-		result1 error
+	getLatestJSONReturnsOnCall map[int]struct {
+		result1 credentials.JSON
+		result2 error
+	}
+	GetLatestValueStub        func(string) (credentials.Value, error)
+	getLatestValueMutex       sync.RWMutex
+	getLatestValueArgsForCall []struct {
+		arg1 string
+	}
+	getLatestValueReturns struct {
+		result1 credentials.Value
+		result2 error
+	}
+	getLatestValueReturnsOnCall map[int]struct {
+		result1 credentials.Value
+		result2 error
+	}
+	SetJSONStub        func(string, values.JSON) (credentials.JSON, error)
+	setJSONMutex       sync.RWMutex
+	setJSONArgsForCall []struct {
+		arg1 string
+		arg2 values.JSON
+	}
+	setJSONReturns struct {
+		result1 credentials.JSON
+		result2 error
+	}
+	setJSONReturnsOnCall map[int]struct {
+		result1 credentials.JSON
+		result2 error
+	}
+	SetValueStub        func(string, values.Value) (credentials.Value, error)
+	setValueMutex       sync.RWMutex
+	setValueArgsForCall []struct {
+		arg1 string
+		arg2 values.Value
+	}
+	setValueReturns struct {
+		result1 credentials.Value
+		result2 error
+	}
+	setValueReturnsOnCall map[int]struct {
+		result1 credentials.Value
+		result2 error
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakeCredhub) SetJSON(name string, value values.JSON) (credentials.JSON, error) {
-	fake.setJSONMutex.Lock()
-	ret, specificReturn := fake.setJSONReturnsOnCall[len(fake.setJSONArgsForCall)]
-	fake.setJSONArgsForCall = append(fake.setJSONArgsForCall, struct {
-		name  string
-		value values.JSON
-	}{name, value})
-	fake.recordInvocation("SetJSON", []interface{}{name, value})
-	fake.setJSONMutex.Unlock()
-	if fake.SetJSONStub != nil {
-		return fake.SetJSONStub(name, value)
+func (fake *FakeCredhub) Delete(arg1 string) error {
+	fake.deleteMutex.Lock()
+	ret, specificReturn := fake.deleteReturnsOnCall[len(fake.deleteArgsForCall)]
+	fake.deleteArgsForCall = append(fake.deleteArgsForCall, struct {
+		arg1 string
+	}{arg1})
+	stub := fake.DeleteStub
+	fakeReturns := fake.deleteReturns
+	fake.recordInvocation("Delete", []interface{}{arg1})
+	fake.deleteMutex.Unlock()
+	if stub != nil {
+		return stub(arg1)
 	}
 	if specificReturn {
-		return ret.result1, ret.result2
+		return ret.result1
 	}
-	return fake.setJSONReturns.result1, fake.setJSONReturns.result2
+	return fakeReturns.result1
 }
 
-func (fake *FakeCredhub) SetJSONCallCount() int {
-	fake.setJSONMutex.RLock()
-	defer fake.setJSONMutex.RUnlock()
-	return len(fake.setJSONArgsForCall)
+func (fake *FakeCredhub) DeleteCallCount() int {
+	fake.deleteMutex.RLock()
+	defer fake.deleteMutex.RUnlock()
+	return len(fake.deleteArgsForCall)
 }
 
-func (fake *FakeCredhub) SetJSONArgsForCall(i int) (string, values.JSON) {
-	fake.setJSONMutex.RLock()
-	defer fake.setJSONMutex.RUnlock()
-	return fake.setJSONArgsForCall[i].name, fake.setJSONArgsForCall[i].value
+func (fake *FakeCredhub) DeleteCalls(stub func(string) error) {
+	fake.deleteMutex.Lock()
+	defer fake.deleteMutex.Unlock()
+	fake.DeleteStub = stub
 }
 
-func (fake *FakeCredhub) SetJSONReturns(result1 credentials.JSON, result2 error) {
-	fake.SetJSONStub = nil
-	fake.setJSONReturns = struct {
-		result1 credentials.JSON
-		result2 error
-	}{result1, result2}
+func (fake *FakeCredhub) DeleteArgsForCall(i int) string {
+	fake.deleteMutex.RLock()
+	defer fake.deleteMutex.RUnlock()
+	argsForCall := fake.deleteArgsForCall[i]
+	return argsForCall.arg1
 }
 
-func (fake *FakeCredhub) SetJSONReturnsOnCall(i int, result1 credentials.JSON, result2 error) {
-	fake.SetJSONStub = nil
-	if fake.setJSONReturnsOnCall == nil {
-		fake.setJSONReturnsOnCall = make(map[int]struct {
-			result1 credentials.JSON
-			result2 error
+func (fake *FakeCredhub) DeleteReturns(result1 error) {
+	fake.deleteMutex.Lock()
+	defer fake.deleteMutex.Unlock()
+	fake.DeleteStub = nil
+	fake.deleteReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *FakeCredhub) DeleteReturnsOnCall(i int, result1 error) {
+	fake.deleteMutex.Lock()
+	defer fake.deleteMutex.Unlock()
+	fake.DeleteStub = nil
+	if fake.deleteReturnsOnCall == nil {
+		fake.deleteReturnsOnCall = make(map[int]struct {
+			result1 error
 		})
 	}
-	fake.setJSONReturnsOnCall[i] = struct {
-		result1 credentials.JSON
-		result2 error
-	}{result1, result2}
+	fake.deleteReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
 }
 
-func (fake *FakeCredhub) GetLatestJSON(name string) (credentials.JSON, error) {
-	fake.getLatestJSONMutex.Lock()
-	ret, specificReturn := fake.getLatestJSONReturnsOnCall[len(fake.getLatestJSONArgsForCall)]
-	fake.getLatestJSONArgsForCall = append(fake.getLatestJSONArgsForCall, struct {
-		name string
-	}{name})
-	fake.recordInvocation("GetLatestJSON", []interface{}{name})
-	fake.getLatestJSONMutex.Unlock()
-	if fake.GetLatestJSONStub != nil {
-		return fake.GetLatestJSONStub(name)
-	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.getLatestJSONReturns.result1, fake.getLatestJSONReturns.result2
-}
-
-func (fake *FakeCredhub) GetLatestJSONCallCount() int {
-	fake.getLatestJSONMutex.RLock()
-	defer fake.getLatestJSONMutex.RUnlock()
-	return len(fake.getLatestJSONArgsForCall)
-}
-
-func (fake *FakeCredhub) GetLatestJSONArgsForCall(i int) string {
-	fake.getLatestJSONMutex.RLock()
-	defer fake.getLatestJSONMutex.RUnlock()
-	return fake.getLatestJSONArgsForCall[i].name
-}
-
-func (fake *FakeCredhub) GetLatestJSONReturns(result1 credentials.JSON, result2 error) {
-	fake.GetLatestJSONStub = nil
-	fake.getLatestJSONReturns = struct {
-		result1 credentials.JSON
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeCredhub) GetLatestJSONReturnsOnCall(i int, result1 credentials.JSON, result2 error) {
-	fake.GetLatestJSONStub = nil
-	if fake.getLatestJSONReturnsOnCall == nil {
-		fake.getLatestJSONReturnsOnCall = make(map[int]struct {
-			result1 credentials.JSON
-			result2 error
-		})
-	}
-	fake.getLatestJSONReturnsOnCall[i] = struct {
-		result1 credentials.JSON
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeCredhub) SetValue(name string, value values.Value) (credentials.Value, error) {
-	fake.setValueMutex.Lock()
-	ret, specificReturn := fake.setValueReturnsOnCall[len(fake.setValueArgsForCall)]
-	fake.setValueArgsForCall = append(fake.setValueArgsForCall, struct {
-		name  string
-		value values.Value
-	}{name, value})
-	fake.recordInvocation("SetValue", []interface{}{name, value})
-	fake.setValueMutex.Unlock()
-	if fake.SetValueStub != nil {
-		return fake.SetValueStub(name, value)
-	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.setValueReturns.result1, fake.setValueReturns.result2
-}
-
-func (fake *FakeCredhub) SetValueCallCount() int {
-	fake.setValueMutex.RLock()
-	defer fake.setValueMutex.RUnlock()
-	return len(fake.setValueArgsForCall)
-}
-
-func (fake *FakeCredhub) SetValueArgsForCall(i int) (string, values.Value) {
-	fake.setValueMutex.RLock()
-	defer fake.setValueMutex.RUnlock()
-	return fake.setValueArgsForCall[i].name, fake.setValueArgsForCall[i].value
-}
-
-func (fake *FakeCredhub) SetValueReturns(result1 credentials.Value, result2 error) {
-	fake.SetValueStub = nil
-	fake.setValueReturns = struct {
-		result1 credentials.Value
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeCredhub) SetValueReturnsOnCall(i int, result1 credentials.Value, result2 error) {
-	fake.SetValueStub = nil
-	if fake.setValueReturnsOnCall == nil {
-		fake.setValueReturnsOnCall = make(map[int]struct {
-			result1 credentials.Value
-			result2 error
-		})
-	}
-	fake.setValueReturnsOnCall[i] = struct {
-		result1 credentials.Value
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeCredhub) GetLatestValue(name string) (credentials.Value, error) {
-	fake.getLatestValueMutex.Lock()
-	ret, specificReturn := fake.getLatestValueReturnsOnCall[len(fake.getLatestValueArgsForCall)]
-	fake.getLatestValueArgsForCall = append(fake.getLatestValueArgsForCall, struct {
-		name string
-	}{name})
-	fake.recordInvocation("GetLatestValue", []interface{}{name})
-	fake.getLatestValueMutex.Unlock()
-	if fake.GetLatestValueStub != nil {
-		return fake.GetLatestValueStub(name)
-	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.getLatestValueReturns.result1, fake.getLatestValueReturns.result2
-}
-
-func (fake *FakeCredhub) GetLatestValueCallCount() int {
-	fake.getLatestValueMutex.RLock()
-	defer fake.getLatestValueMutex.RUnlock()
-	return len(fake.getLatestValueArgsForCall)
-}
-
-func (fake *FakeCredhub) GetLatestValueArgsForCall(i int) string {
-	fake.getLatestValueMutex.RLock()
-	defer fake.getLatestValueMutex.RUnlock()
-	return fake.getLatestValueArgsForCall[i].name
-}
-
-func (fake *FakeCredhub) GetLatestValueReturns(result1 credentials.Value, result2 error) {
-	fake.GetLatestValueStub = nil
-	fake.getLatestValueReturns = struct {
-		result1 credentials.Value
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeCredhub) GetLatestValueReturnsOnCall(i int, result1 credentials.Value, result2 error) {
-	fake.GetLatestValueStub = nil
-	if fake.getLatestValueReturnsOnCall == nil {
-		fake.getLatestValueReturnsOnCall = make(map[int]struct {
-			result1 credentials.Value
-			result2 error
-		})
-	}
-	fake.getLatestValueReturnsOnCall[i] = struct {
-		result1 credentials.Value
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *FakeCredhub) FindByPath(path string) (credentials.FindResults, error) {
+func (fake *FakeCredhub) FindByPath(arg1 string) (credentials.FindResults, error) {
 	fake.findByPathMutex.Lock()
 	ret, specificReturn := fake.findByPathReturnsOnCall[len(fake.findByPathArgsForCall)]
 	fake.findByPathArgsForCall = append(fake.findByPathArgsForCall, struct {
-		path string
-	}{path})
-	fake.recordInvocation("FindByPath", []interface{}{path})
+		arg1 string
+	}{arg1})
+	stub := fake.FindByPathStub
+	fakeReturns := fake.findByPathReturns
+	fake.recordInvocation("FindByPath", []interface{}{arg1})
 	fake.findByPathMutex.Unlock()
-	if fake.FindByPathStub != nil {
-		return fake.FindByPathStub(path)
+	if stub != nil {
+		return stub(arg1)
 	}
 	if specificReturn {
 		return ret.result1, ret.result2
 	}
-	return fake.findByPathReturns.result1, fake.findByPathReturns.result2
+	return fakeReturns.result1, fakeReturns.result2
 }
 
 func (fake *FakeCredhub) FindByPathCallCount() int {
@@ -321,13 +178,22 @@ func (fake *FakeCredhub) FindByPathCallCount() int {
 	return len(fake.findByPathArgsForCall)
 }
 
+func (fake *FakeCredhub) FindByPathCalls(stub func(string) (credentials.FindResults, error)) {
+	fake.findByPathMutex.Lock()
+	defer fake.findByPathMutex.Unlock()
+	fake.FindByPathStub = stub
+}
+
 func (fake *FakeCredhub) FindByPathArgsForCall(i int) string {
 	fake.findByPathMutex.RLock()
 	defer fake.findByPathMutex.RUnlock()
-	return fake.findByPathArgsForCall[i].path
+	argsForCall := fake.findByPathArgsForCall[i]
+	return argsForCall.arg1
 }
 
 func (fake *FakeCredhub) FindByPathReturns(result1 credentials.FindResults, result2 error) {
+	fake.findByPathMutex.Lock()
+	defer fake.findByPathMutex.Unlock()
 	fake.FindByPathStub = nil
 	fake.findByPathReturns = struct {
 		result1 credentials.FindResults
@@ -336,6 +202,8 @@ func (fake *FakeCredhub) FindByPathReturns(result1 credentials.FindResults, resu
 }
 
 func (fake *FakeCredhub) FindByPathReturnsOnCall(i int, result1 credentials.FindResults, result2 error) {
+	fake.findByPathMutex.Lock()
+	defer fake.findByPathMutex.Unlock()
 	fake.FindByPathStub = nil
 	if fake.findByPathReturnsOnCall == nil {
 		fake.findByPathReturnsOnCall = make(map[int]struct {
@@ -349,69 +217,279 @@ func (fake *FakeCredhub) FindByPathReturnsOnCall(i int, result1 credentials.Find
 	}{result1, result2}
 }
 
-func (fake *FakeCredhub) Delete(name string) error {
-	fake.deleteMutex.Lock()
-	ret, specificReturn := fake.deleteReturnsOnCall[len(fake.deleteArgsForCall)]
-	fake.deleteArgsForCall = append(fake.deleteArgsForCall, struct {
-		name string
-	}{name})
-	fake.recordInvocation("Delete", []interface{}{name})
-	fake.deleteMutex.Unlock()
-	if fake.DeleteStub != nil {
-		return fake.DeleteStub(name)
+func (fake *FakeCredhub) GetLatestJSON(arg1 string) (credentials.JSON, error) {
+	fake.getLatestJSONMutex.Lock()
+	ret, specificReturn := fake.getLatestJSONReturnsOnCall[len(fake.getLatestJSONArgsForCall)]
+	fake.getLatestJSONArgsForCall = append(fake.getLatestJSONArgsForCall, struct {
+		arg1 string
+	}{arg1})
+	stub := fake.GetLatestJSONStub
+	fakeReturns := fake.getLatestJSONReturns
+	fake.recordInvocation("GetLatestJSON", []interface{}{arg1})
+	fake.getLatestJSONMutex.Unlock()
+	if stub != nil {
+		return stub(arg1)
 	}
 	if specificReturn {
-		return ret.result1
+		return ret.result1, ret.result2
 	}
-	return fake.deleteReturns.result1
+	return fakeReturns.result1, fakeReturns.result2
 }
 
-func (fake *FakeCredhub) DeleteCallCount() int {
-	fake.deleteMutex.RLock()
-	defer fake.deleteMutex.RUnlock()
-	return len(fake.deleteArgsForCall)
+func (fake *FakeCredhub) GetLatestJSONCallCount() int {
+	fake.getLatestJSONMutex.RLock()
+	defer fake.getLatestJSONMutex.RUnlock()
+	return len(fake.getLatestJSONArgsForCall)
 }
 
-func (fake *FakeCredhub) DeleteArgsForCall(i int) string {
-	fake.deleteMutex.RLock()
-	defer fake.deleteMutex.RUnlock()
-	return fake.deleteArgsForCall[i].name
+func (fake *FakeCredhub) GetLatestJSONCalls(stub func(string) (credentials.JSON, error)) {
+	fake.getLatestJSONMutex.Lock()
+	defer fake.getLatestJSONMutex.Unlock()
+	fake.GetLatestJSONStub = stub
 }
 
-func (fake *FakeCredhub) DeleteReturns(result1 error) {
-	fake.DeleteStub = nil
-	fake.deleteReturns = struct {
-		result1 error
-	}{result1}
+func (fake *FakeCredhub) GetLatestJSONArgsForCall(i int) string {
+	fake.getLatestJSONMutex.RLock()
+	defer fake.getLatestJSONMutex.RUnlock()
+	argsForCall := fake.getLatestJSONArgsForCall[i]
+	return argsForCall.arg1
 }
 
-func (fake *FakeCredhub) DeleteReturnsOnCall(i int, result1 error) {
-	fake.DeleteStub = nil
-	if fake.deleteReturnsOnCall == nil {
-		fake.deleteReturnsOnCall = make(map[int]struct {
-			result1 error
+func (fake *FakeCredhub) GetLatestJSONReturns(result1 credentials.JSON, result2 error) {
+	fake.getLatestJSONMutex.Lock()
+	defer fake.getLatestJSONMutex.Unlock()
+	fake.GetLatestJSONStub = nil
+	fake.getLatestJSONReturns = struct {
+		result1 credentials.JSON
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) GetLatestJSONReturnsOnCall(i int, result1 credentials.JSON, result2 error) {
+	fake.getLatestJSONMutex.Lock()
+	defer fake.getLatestJSONMutex.Unlock()
+	fake.GetLatestJSONStub = nil
+	if fake.getLatestJSONReturnsOnCall == nil {
+		fake.getLatestJSONReturnsOnCall = make(map[int]struct {
+			result1 credentials.JSON
+			result2 error
 		})
 	}
-	fake.deleteReturnsOnCall[i] = struct {
-		result1 error
-	}{result1}
+	fake.getLatestJSONReturnsOnCall[i] = struct {
+		result1 credentials.JSON
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) GetLatestValue(arg1 string) (credentials.Value, error) {
+	fake.getLatestValueMutex.Lock()
+	ret, specificReturn := fake.getLatestValueReturnsOnCall[len(fake.getLatestValueArgsForCall)]
+	fake.getLatestValueArgsForCall = append(fake.getLatestValueArgsForCall, struct {
+		arg1 string
+	}{arg1})
+	stub := fake.GetLatestValueStub
+	fakeReturns := fake.getLatestValueReturns
+	fake.recordInvocation("GetLatestValue", []interface{}{arg1})
+	fake.getLatestValueMutex.Unlock()
+	if stub != nil {
+		return stub(arg1)
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fakeReturns.result1, fakeReturns.result2
+}
+
+func (fake *FakeCredhub) GetLatestValueCallCount() int {
+	fake.getLatestValueMutex.RLock()
+	defer fake.getLatestValueMutex.RUnlock()
+	return len(fake.getLatestValueArgsForCall)
+}
+
+func (fake *FakeCredhub) GetLatestValueCalls(stub func(string) (credentials.Value, error)) {
+	fake.getLatestValueMutex.Lock()
+	defer fake.getLatestValueMutex.Unlock()
+	fake.GetLatestValueStub = stub
+}
+
+func (fake *FakeCredhub) GetLatestValueArgsForCall(i int) string {
+	fake.getLatestValueMutex.RLock()
+	defer fake.getLatestValueMutex.RUnlock()
+	argsForCall := fake.getLatestValueArgsForCall[i]
+	return argsForCall.arg1
+}
+
+func (fake *FakeCredhub) GetLatestValueReturns(result1 credentials.Value, result2 error) {
+	fake.getLatestValueMutex.Lock()
+	defer fake.getLatestValueMutex.Unlock()
+	fake.GetLatestValueStub = nil
+	fake.getLatestValueReturns = struct {
+		result1 credentials.Value
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) GetLatestValueReturnsOnCall(i int, result1 credentials.Value, result2 error) {
+	fake.getLatestValueMutex.Lock()
+	defer fake.getLatestValueMutex.Unlock()
+	fake.GetLatestValueStub = nil
+	if fake.getLatestValueReturnsOnCall == nil {
+		fake.getLatestValueReturnsOnCall = make(map[int]struct {
+			result1 credentials.Value
+			result2 error
+		})
+	}
+	fake.getLatestValueReturnsOnCall[i] = struct {
+		result1 credentials.Value
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) SetJSON(arg1 string, arg2 values.JSON) (credentials.JSON, error) {
+	fake.setJSONMutex.Lock()
+	ret, specificReturn := fake.setJSONReturnsOnCall[len(fake.setJSONArgsForCall)]
+	fake.setJSONArgsForCall = append(fake.setJSONArgsForCall, struct {
+		arg1 string
+		arg2 values.JSON
+	}{arg1, arg2})
+	stub := fake.SetJSONStub
+	fakeReturns := fake.setJSONReturns
+	fake.recordInvocation("SetJSON", []interface{}{arg1, arg2})
+	fake.setJSONMutex.Unlock()
+	if stub != nil {
+		return stub(arg1, arg2)
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fakeReturns.result1, fakeReturns.result2
+}
+
+func (fake *FakeCredhub) SetJSONCallCount() int {
+	fake.setJSONMutex.RLock()
+	defer fake.setJSONMutex.RUnlock()
+	return len(fake.setJSONArgsForCall)
+}
+
+func (fake *FakeCredhub) SetJSONCalls(stub func(string, values.JSON) (credentials.JSON, error)) {
+	fake.setJSONMutex.Lock()
+	defer fake.setJSONMutex.Unlock()
+	fake.SetJSONStub = stub
+}
+
+func (fake *FakeCredhub) SetJSONArgsForCall(i int) (string, values.JSON) {
+	fake.setJSONMutex.RLock()
+	defer fake.setJSONMutex.RUnlock()
+	argsForCall := fake.setJSONArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2
+}
+
+func (fake *FakeCredhub) SetJSONReturns(result1 credentials.JSON, result2 error) {
+	fake.setJSONMutex.Lock()
+	defer fake.setJSONMutex.Unlock()
+	fake.SetJSONStub = nil
+	fake.setJSONReturns = struct {
+		result1 credentials.JSON
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) SetJSONReturnsOnCall(i int, result1 credentials.JSON, result2 error) {
+	fake.setJSONMutex.Lock()
+	defer fake.setJSONMutex.Unlock()
+	fake.SetJSONStub = nil
+	if fake.setJSONReturnsOnCall == nil {
+		fake.setJSONReturnsOnCall = make(map[int]struct {
+			result1 credentials.JSON
+			result2 error
+		})
+	}
+	fake.setJSONReturnsOnCall[i] = struct {
+		result1 credentials.JSON
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) SetValue(arg1 string, arg2 values.Value) (credentials.Value, error) {
+	fake.setValueMutex.Lock()
+	ret, specificReturn := fake.setValueReturnsOnCall[len(fake.setValueArgsForCall)]
+	fake.setValueArgsForCall = append(fake.setValueArgsForCall, struct {
+		arg1 string
+		arg2 values.Value
+	}{arg1, arg2})
+	stub := fake.SetValueStub
+	fakeReturns := fake.setValueReturns
+	fake.recordInvocation("SetValue", []interface{}{arg1, arg2})
+	fake.setValueMutex.Unlock()
+	if stub != nil {
+		return stub(arg1, arg2)
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fakeReturns.result1, fakeReturns.result2
+}
+
+func (fake *FakeCredhub) SetValueCallCount() int {
+	fake.setValueMutex.RLock()
+	defer fake.setValueMutex.RUnlock()
+	return len(fake.setValueArgsForCall)
+}
+
+func (fake *FakeCredhub) SetValueCalls(stub func(string, values.Value) (credentials.Value, error)) {
+	fake.setValueMutex.Lock()
+	defer fake.setValueMutex.Unlock()
+	fake.SetValueStub = stub
+}
+
+func (fake *FakeCredhub) SetValueArgsForCall(i int) (string, values.Value) {
+	fake.setValueMutex.RLock()
+	defer fake.setValueMutex.RUnlock()
+	argsForCall := fake.setValueArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2
+}
+
+func (fake *FakeCredhub) SetValueReturns(result1 credentials.Value, result2 error) {
+	fake.setValueMutex.Lock()
+	defer fake.setValueMutex.Unlock()
+	fake.SetValueStub = nil
+	fake.setValueReturns = struct {
+		result1 credentials.Value
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeCredhub) SetValueReturnsOnCall(i int, result1 credentials.Value, result2 error) {
+	fake.setValueMutex.Lock()
+	defer fake.setValueMutex.Unlock()
+	fake.SetValueStub = nil
+	if fake.setValueReturnsOnCall == nil {
+		fake.setValueReturnsOnCall = make(map[int]struct {
+			result1 credentials.Value
+			result2 error
+		})
+	}
+	fake.setValueReturnsOnCall[i] = struct {
+		result1 credentials.Value
+		result2 error
+	}{result1, result2}
 }
 
 func (fake *FakeCredhub) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
-	fake.setJSONMutex.RLock()
-	defer fake.setJSONMutex.RUnlock()
-	fake.getLatestJSONMutex.RLock()
-	defer fake.getLatestJSONMutex.RUnlock()
-	fake.setValueMutex.RLock()
-	defer fake.setValueMutex.RUnlock()
-	fake.getLatestValueMutex.RLock()
-	defer fake.getLatestValueMutex.RUnlock()
-	fake.findByPathMutex.RLock()
-	defer fake.findByPathMutex.RUnlock()
 	fake.deleteMutex.RLock()
 	defer fake.deleteMutex.RUnlock()
+	fake.findByPathMutex.RLock()
+	defer fake.findByPathMutex.RUnlock()
+	fake.getLatestJSONMutex.RLock()
+	defer fake.getLatestJSONMutex.RUnlock()
+	fake.getLatestValueMutex.RLock()
+	defer fake.getLatestValueMutex.RUnlock()
+	fake.setJSONMutex.RLock()
+	defer fake.setJSONMutex.RUnlock()
+	fake.setValueMutex.RLock()
+	defer fake.setValueMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

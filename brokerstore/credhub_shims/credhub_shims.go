@@ -7,7 +7,8 @@ import (
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
 )
 
-//go:generate counterfeiter -o ./credhub_fakes/credhub_auth_fake.go . CredhubAuth
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
+//counterfeiter:generate -o ./credhub_fakes/credhub_auth_fake.go . CredhubAuth
 type CredhubAuth interface {
 	UaaClientCredentials(clientId, clientSecret string) auth.Builder
 }
@@ -19,7 +20,7 @@ func (c *CredhubAuthShim) UaaClientCredentials(clientId, clientSecret string) au
 	return auth.UaaClientCredentials(clientId, clientSecret)
 }
 
-//go:generate counterfeiter -o ./credhub_fakes/credhub_fake.go . Credhub
+//counterfeiter:generate -o ./credhub_fakes/credhub_fake.go . Credhub
 type Credhub interface {
 	SetJSON(name string, value values.JSON) (credentials.JSON, error)
 	GetLatestJSON(name string) (credentials.JSON, error)
