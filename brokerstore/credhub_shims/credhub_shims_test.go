@@ -8,11 +8,10 @@ import (
 	"encoding/pem"
 	"math/big"
 
-	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
-
 	"code.cloudfoundry.org/credhub-cli/credhub/auth"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
-	. "github.com/onsi/ginkgo"
+	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

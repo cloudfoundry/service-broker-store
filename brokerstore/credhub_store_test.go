@@ -6,16 +6,15 @@ import (
 
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
-	"code.cloudfoundry.org/lager"
-	"code.cloudfoundry.org/lager/lagertest"
-	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
-	"github.com/pivotal-cf/brokerapi"
-	"golang.org/x/crypto/bcrypt"
-
+	"code.cloudfoundry.org/lager/v3"
+	"code.cloudfoundry.org/lager/v3/lagertest"
 	. "code.cloudfoundry.org/service-broker-store/brokerstore"
-
-	. "github.com/onsi/ginkgo"
+	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"github.com/pivotal-cf/brokerapi/v9"
+	"github.com/pivotal-cf/brokerapi/v9/domain"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var _ = Describe("CredhubStore", func() {
@@ -191,17 +190,17 @@ var _ = Describe("CredhubStore", func() {
 	Context("#CreateBindingDetails", func() {
 		var (
 			id           string
-			bindDetails  brokerapi.BindDetails
+			bindDetails  domain.BindDetails
 			expectedJSON string
 		)
 
 		BeforeEach(func() {
 			id = "12345"
-			bindDetails = brokerapi.BindDetails{
+			bindDetails = domain.BindDetails{
 				AppGUID:       "app-guid",
 				PlanID:        "plan-id",
 				ServiceID:     "service-id",
-				BindResource:  &brokerapi.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
+				BindResource:  &domain.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
 				RawParameters: json.RawMessage([]byte(`{"password":"a-password","username":"a-username"}`)),
 			}
 			expectedJSON = `{
@@ -378,8 +377,8 @@ var _ = Describe("CredhubStore", func() {
 				AppGUID:       "app-guid",
 				PlanID:        "plan-id",
 				ServiceID:     "service-id",
-				BindResource:  &brokerapi.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
-				RawParameters: json.RawMessage([]byte(`{"username": "a-username", "password": "a-password"}`)),
+				BindResource:  &domain.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
+				RawParameters: json.RawMessage(`{"username": "a-username", "password": "a-password"}`),
 			})
 			Expect(isConflict).To(BeFalse())
 		})
@@ -390,7 +389,7 @@ var _ = Describe("CredhubStore", func() {
 				PlanID:        "other-plan-id",
 				ServiceID:     "other-service-id",
 				BindResource:  &brokerapi.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
-				RawParameters: json.RawMessage([]byte(`{"paramsHash": "some-other-hash"}`)),
+				RawParameters: json.RawMessage(`{"paramsHash": "some-other-hash"}`),
 			})
 			Expect(isConflict).To(BeTrue())
 		})

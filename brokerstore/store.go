@@ -5,9 +5,10 @@ import (
 	"errors"
 	"reflect"
 
-	"code.cloudfoundry.org/lager"
+	"code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
-	"github.com/pivotal-cf/brokerapi"
+	"github.com/pivotal-cf/brokerapi/v9"
+	"github.com/pivotal-cf/brokerapi/v9/domain"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -19,22 +20,23 @@ type ServiceInstance struct {
 	ServiceFingerPrint interface{}
 }
 
-//go:generate counterfeiter -o ./brokerstorefakes/fake_store.go . Store
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
+//counterfeiter:generate -o ./brokerstorefakes/fake_store.go . Store
 type Store interface {
 	RetrieveInstanceDetails(id string) (ServiceInstance, error)
-	RetrieveBindingDetails(id string) (brokerapi.BindDetails, error)
+	RetrieveBindingDetails(id string) (domain.BindDetails, error)
 
 	RetrieveAllInstanceDetails() (map[string]ServiceInstance, error)
-	RetrieveAllBindingDetails() (map[string]brokerapi.BindDetails, error)
+	RetrieveAllBindingDetails() (map[string]domain.BindDetails, error)
 
 	CreateInstanceDetails(id string, details ServiceInstance) error
-	CreateBindingDetails(id string, details brokerapi.BindDetails) error
+	CreateBindingDetails(id string, details domain.BindDetails) error
 
 	DeleteInstanceDetails(id string) error
 	DeleteBindingDetails(id string) error
 
 	IsInstanceConflict(id string, details ServiceInstance) bool
-	IsBindingConflict(id string, details brokerapi.BindDetails) bool
+	IsBindingConflict(id string, details domain.BindDetails) bool
 
 	Restore(logger lager.Logger) error
 	Save(logger lager.Logger) error
@@ -163,7 +165,7 @@ func passwordCheckValue(data *interface{}) bool {
 }
 
 func passwordCheckArray(data *[]interface{}) bool {
-	for i, _ := range *data {
+	for i := range *data {
 		if passwordCheckValue(&((*data)[i])) {
 			return true
 		}
