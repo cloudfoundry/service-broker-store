@@ -8,7 +8,7 @@ require (
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.6.1
 	github.com/onsi/ginkgo/v2 v2.9.2
 	github.com/onsi/gomega v1.27.6
-	github.com/pivotal-cf/brokerapi/v9 v9.0.0
+	github.com/pivotal-cf/brokerapi/v9 v9.0.1
 	golang.org/x/crypto v0.8.0
 )
 
