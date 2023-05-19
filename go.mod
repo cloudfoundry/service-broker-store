@@ -7,7 +7,7 @@ require (
 	code.cloudfoundry.org/lager/v3 v3.0.1
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.6.1
 	github.com/onsi/ginkgo/v2 v2.9.5
-	github.com/onsi/gomega v1.27.6
+	github.com/onsi/gomega v1.27.7
 	github.com/pivotal-cf/brokerapi/v9 v9.0.1
 	golang.org/x/crypto v0.9.0
 )
