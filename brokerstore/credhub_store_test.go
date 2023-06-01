@@ -12,8 +12,8 @@ import (
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf/brokerapi/v9"
-	"github.com/pivotal-cf/brokerapi/v9/domain"
+	"github.com/pivotal-cf/brokerapi/v10"
+	"github.com/pivotal-cf/brokerapi/v10/domain"
 	"golang.org/x/crypto/bcrypt"
 )
 
