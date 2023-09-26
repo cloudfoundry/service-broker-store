@@ -11,3 +11,4 @@ func TestServiceBrokerStore(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "ServiceBrokerStore Suite")
 }
+
