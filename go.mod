@@ -9,7 +9,7 @@ require (
 	code.cloudfoundry.org/lager/v3 v3.0.2
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.7.0
 	github.com/onsi/ginkgo/v2 v2.13.0
-	github.com/onsi/gomega v1.28.1
+	github.com/onsi/gomega v1.29.0
 	github.com/pivotal-cf/brokerapi/v10 v10.1.0
 	golang.org/x/crypto v0.14.0
 )
