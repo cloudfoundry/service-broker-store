@@ -6,7 +6,7 @@ toolchain go1.21.0
 
 require (
 	code.cloudfoundry.org/credhub-cli v0.0.0-20200227190202-0fffecb4557e
-	code.cloudfoundry.org/lager/v3 v3.0.2
+	code.cloudfoundry.org/lager/v3 v3.0.3
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.7.0
 	github.com/onsi/ginkgo/v2 v2.13.2
 	github.com/onsi/gomega v1.30.0
@@ -25,7 +25,7 @@ require (
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/hashicorp/go-version v1.2.0 // indirect
 	github.com/kr/pretty v0.2.1 // indirect
-	github.com/openzipkin/zipkin-go v0.4.1 // indirect
+	github.com/openzipkin/zipkin-go v0.4.2 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/mod v0.13.0 // indirect
