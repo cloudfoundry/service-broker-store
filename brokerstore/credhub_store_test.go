@@ -429,7 +429,10 @@ var _ = Describe("CredhubStore", func() {
 		Context("when the migration from SQL has run", func() {
 			BeforeEach(func() {
 				fakeCredhub.FindByPathReturns(credentials.FindResults{
-					Credentials: []credentials.Base{
+					Credentials: []struct {
+						Name             string `json:"name" yaml:"name"`
+						VersionCreatedAt string `json:"version_created_at" yaml:"version_created_at"`
+					}{
 						{Name: "migrated-from-sql"},
 					},
 				}, nil)
