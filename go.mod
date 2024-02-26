@@ -9,7 +9,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
 	github.com/pivotal-cf/brokerapi/v10 v10.2.0
-	golang.org/x/crypto v0.19.0
+	golang.org/x/crypto v0.20.0
 )
 
 require (
