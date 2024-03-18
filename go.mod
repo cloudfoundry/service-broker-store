@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/credhub-cli v0.0.0-20240311141218-4307372180c7
 	code.cloudfoundry.org/lager/v3 v3.0.3
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.8.1
-	github.com/onsi/ginkgo/v2 v2.16.0
+	github.com/onsi/ginkgo/v2 v2.17.0
 	github.com/onsi/gomega v1.32.0
 	github.com/pivotal-cf/brokerapi/v10 v10.2.0
 	golang.org/x/crypto v0.21.0
