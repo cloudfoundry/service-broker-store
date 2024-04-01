@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/credhub-cli v0.0.0-20240321182504-6b3dc17b18a7
+# code.cloudfoundry.org/credhub-cli v0.0.0-20240325130311-cdbb1ac98b29
 ## explicit; go 1.21.6
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -39,7 +39,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20240227163752-401108e1b7e7
+# github.com/google/pprof v0.0.0-20240320155624-b11c3daa6f07
 ## explicit; go 1.19
 github.com/google/pprof/profile
 # github.com/google/uuid v1.6.0
