@@ -22,7 +22,7 @@ github.com/cloudfoundry/go-socks5
 github.com/cloudfoundry/socks5-proxy
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 ## explicit
-# github.com/go-chi/chi/v5 v5.0.11
+# github.com/go-chi/chi/v5 v5.0.12
 ## explicit; go 1.14
 github.com/go-chi/chi/v5
 # github.com/go-logr/logr v1.4.1
@@ -96,15 +96,16 @@ github.com/openzipkin/zipkin-go/model
 # github.com/pborman/uuid v1.2.1
 ## explicit
 github.com/pborman/uuid
-# github.com/pivotal-cf/brokerapi/v10 v10.2.0
-## explicit; go 1.20
-github.com/pivotal-cf/brokerapi/v10
-github.com/pivotal-cf/brokerapi/v10/auth
-github.com/pivotal-cf/brokerapi/v10/domain
-github.com/pivotal-cf/brokerapi/v10/domain/apiresponses
-github.com/pivotal-cf/brokerapi/v10/handlers
-github.com/pivotal-cf/brokerapi/v10/middlewares
-github.com/pivotal-cf/brokerapi/v10/utils
+# github.com/pivotal-cf/brokerapi/v11 v11.0.0
+## explicit; go 1.21
+github.com/pivotal-cf/brokerapi/v11
+github.com/pivotal-cf/brokerapi/v11/auth
+github.com/pivotal-cf/brokerapi/v11/domain
+github.com/pivotal-cf/brokerapi/v11/domain/apiresponses
+github.com/pivotal-cf/brokerapi/v11/handlers
+github.com/pivotal-cf/brokerapi/v11/internal/blog
+github.com/pivotal-cf/brokerapi/v11/middlewares
+github.com/pivotal-cf/brokerapi/v11/utils
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
