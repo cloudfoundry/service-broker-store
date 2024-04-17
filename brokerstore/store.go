@@ -7,8 +7,8 @@ import (
 
 	"code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
-	"github.com/pivotal-cf/brokerapi/v10"
-	"github.com/pivotal-cf/brokerapi/v10/domain"
+	"github.com/pivotal-cf/brokerapi/v11"
+	"github.com/pivotal-cf/brokerapi/v11/domain"
 	"golang.org/x/crypto/bcrypt"
 )
 
