@@ -3,7 +3,7 @@ module code.cloudfoundry.org/service-broker-store
 go 1.22.2
 
 require (
-	code.cloudfoundry.org/credhub-cli v0.0.0-20240422130708-a7f1bfa10430
+	code.cloudfoundry.org/credhub-cli v0.0.0-20240429130629-19663e8d3d05
 	code.cloudfoundry.org/lager/v3 v3.0.3
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.8.1
 	github.com/onsi/ginkgo/v2 v2.17.2
