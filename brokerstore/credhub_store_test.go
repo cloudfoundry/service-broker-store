@@ -12,7 +12,6 @@ import (
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf/brokerapi/v11"
 	"github.com/pivotal-cf/brokerapi/v11/domain"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -138,7 +137,7 @@ var _ = Describe("CredhubStore", func() {
 	Context("#RetrieveBindingDetails", func() {
 		var (
 			id             string
-			bindingDetails brokerapi.BindDetails
+			bindingDetails domain.BindDetails
 		)
 
 		BeforeEach(func() {
@@ -167,11 +166,11 @@ var _ = Describe("CredhubStore", func() {
 			Expect(fakeCredhub.GetLatestJSONCallCount()).To(Equal(1))
 			id := fakeCredhub.GetLatestJSONArgsForCall(0)
 			Expect(id).To(Equal("/some-store-id/12345"))
-			Expect(bindingDetails).To(Equal(brokerapi.BindDetails{
+			Expect(bindingDetails).To(Equal(domain.BindDetails{
 				AppGUID:       "app-guid",
 				PlanID:        "plan-id",
 				ServiceID:     "service-id",
-				BindResource:  &brokerapi.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
+				BindResource:  &domain.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
 				RawParameters: json.RawMessage([]byte(`{"password":"a-password","username":"a-username"}`)),
 			}))
 		})
@@ -373,7 +372,7 @@ var _ = Describe("CredhubStore", func() {
 		})
 
 		It("returns false when instance details are the same", func() {
-			isConflict := store.IsBindingConflict(id, brokerapi.BindDetails{
+			isConflict := store.IsBindingConflict(id, domain.BindDetails{
 				AppGUID:       "app-guid",
 				PlanID:        "plan-id",
 				ServiceID:     "service-id",
@@ -384,11 +383,11 @@ var _ = Describe("CredhubStore", func() {
 		})
 
 		It("returns true when instance details are the different", func() {
-			isConflict := store.IsBindingConflict(id, brokerapi.BindDetails{
+			isConflict := store.IsBindingConflict(id, domain.BindDetails{
 				AppGUID:       "app-guid",
 				PlanID:        "other-plan-id",
 				ServiceID:     "other-service-id",
-				BindResource:  &brokerapi.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
+				BindResource:  &domain.BindResource{AppGuid: "app-guid", Route: "my-app.cf.com"},
 				RawParameters: json.RawMessage(`{"paramsHash": "some-other-hash"}`),
 			})
 			Expect(isConflict).To(BeTrue())

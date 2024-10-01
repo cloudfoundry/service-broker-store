@@ -20,7 +20,7 @@ var _ = Describe("Store", func() {
 					brokerstore.NewStore(logger, "", "", "", "", "", "")
 				}).Should(Panic())
 
-				Expect(logger.Buffer()).Should(gbytes.Say("Invalid brokerstore configuration"))
+				Expect(logger.Buffer()).Should(gbytes.Say("invalid brokerstore configuration"))
 			})
 		})
 	})
