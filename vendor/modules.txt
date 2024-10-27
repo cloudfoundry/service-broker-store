@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/credhub-cli v0.0.0-20241007130734-43a9b718dfb3
+# code.cloudfoundry.org/credhub-cli v0.0.0-20241022172641-e8450bcc2ac7
 ## explicit; go 1.22.0
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -8,7 +8,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.10.0
+# code.cloudfoundry.org/lager/v3 v3.11.0
 ## explicit; go 1.22.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -17,7 +17,7 @@ code.cloudfoundry.org/lager/v3/lagertest
 # github.com/cloudfoundry/go-socks5 v0.0.0-20240831012420-2590b55236ee
 ## explicit; go 1.21.0
 github.com/cloudfoundry/go-socks5
-# github.com/cloudfoundry/socks5-proxy v0.2.128
+# github.com/cloudfoundry/socks5-proxy v0.2.129
 ## explicit; go 1.22.0
 github.com/cloudfoundry/socks5-proxy
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
@@ -36,14 +36,14 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20241017200806-017d972448fc
+# github.com/google/pprof v0.0.0-20241023014458-598669927662
 ## explicit; go 1.22
 github.com/google/pprof/profile
 # github.com/hashicorp/go-version v1.7.0
 ## explicit
 github.com/hashicorp/go-version
-# github.com/maxbrunsfeld/counterfeiter/v6 v6.9.0
-## explicit; go 1.22.0
+# github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
+## explicit; go 1.23
 github.com/maxbrunsfeld/counterfeiter/v6
 github.com/maxbrunsfeld/counterfeiter/v6/arguments
 github.com/maxbrunsfeld/counterfeiter/v6/command
@@ -87,7 +87,7 @@ github.com/onsi/gomega/types
 ## explicit; go 1.20
 github.com/openzipkin/zipkin-go/idgenerator
 github.com/openzipkin/zipkin-go/model
-# github.com/pivotal-cf/brokerapi/v11 v11.0.10
+# github.com/pivotal-cf/brokerapi/v11 v11.0.11
 ## explicit; go 1.21
 github.com/pivotal-cf/brokerapi/v11/domain
 # github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2
