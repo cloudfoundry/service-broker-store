@@ -5,12 +5,12 @@ go 1.23
 toolchain go1.23.2
 
 require (
-	code.cloudfoundry.org/credhub-cli v0.0.0-20241104235029-3abce2cb0fc6
-	code.cloudfoundry.org/lager/v3 v3.14.0
+	code.cloudfoundry.org/credhub-cli v0.0.0-20241111140541-fdb2c1524e73
+	code.cloudfoundry.org/lager/v3 v3.15.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
 	github.com/onsi/ginkgo/v2 v2.21.0
 	github.com/onsi/gomega v1.35.1
-	github.com/pivotal-cf/brokerapi/v11 v11.0.12
+	github.com/pivotal-cf/brokerapi/v11 v11.0.13
 	golang.org/x/crypto v0.29.0
 )
 

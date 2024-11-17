@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/credhub-cli v0.0.0-20241104235029-3abce2cb0fc6
+# code.cloudfoundry.org/credhub-cli v0.0.0-20241111140541-fdb2c1524e73
 ## explicit; go 1.22.0
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -8,7 +8,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.14.0
+# code.cloudfoundry.org/lager/v3 v3.15.0
 ## explicit; go 1.22.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -87,7 +87,7 @@ github.com/onsi/gomega/types
 ## explicit; go 1.20
 github.com/openzipkin/zipkin-go/idgenerator
 github.com/openzipkin/zipkin-go/model
-# github.com/pivotal-cf/brokerapi/v11 v11.0.12
+# github.com/pivotal-cf/brokerapi/v11 v11.0.13
 ## explicit; go 1.21
 github.com/pivotal-cf/brokerapi/v11/domain
 # github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2
