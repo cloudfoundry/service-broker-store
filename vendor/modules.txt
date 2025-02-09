@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/credhub-cli v0.0.0-20250127140616-09d802d47c27
+# code.cloudfoundry.org/credhub-cli v0.0.0-20250203140928-329c0d63b022
 ## explicit; go 1.22.0
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -8,7 +8,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.24.0
+# code.cloudfoundry.org/lager/v3 v3.25.0
 ## explicit; go 1.22.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -17,7 +17,7 @@ code.cloudfoundry.org/lager/v3/lagertest
 # github.com/cloudfoundry/go-socks5 v0.0.0-20240831012420-2590b55236ee
 ## explicit; go 1.21.0
 github.com/cloudfoundry/go-socks5
-# github.com/cloudfoundry/socks5-proxy v0.2.140
+# github.com/cloudfoundry/socks5-proxy v0.2.141
 ## explicit; go 1.22.0
 github.com/cloudfoundry/socks5-proxy
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
@@ -36,7 +36,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20250128161936-077ca0a936bf
+# github.com/google/pprof v0.0.0-20250208200701-d0013a598941
 ## explicit; go 1.22
 github.com/google/pprof/profile
 # github.com/hashicorp/go-version v1.7.0
@@ -95,7 +95,7 @@ github.com/pivotal-cf/brokerapi/v11/domain
 ## explicit
 # github.com/stretchr/testify v1.9.0
 ## explicit; go 1.17
-# golang.org/x/crypto v0.32.0
+# golang.org/x/crypto v0.33.0
 ## explicit; go 1.20
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/blowfish
@@ -118,14 +118,14 @@ golang.org/x/net/html/atom
 golang.org/x/net/html/charset
 golang.org/x/net/internal/socks
 golang.org/x/net/proxy
-# golang.org/x/sync v0.10.0
+# golang.org/x/sync v0.11.0
 ## explicit; go 1.18
 golang.org/x/sync/errgroup
-# golang.org/x/sys v0.29.0
+# golang.org/x/sys v0.30.0
 ## explicit; go 1.18
 golang.org/x/sys/cpu
 golang.org/x/sys/unix
-# golang.org/x/text v0.21.0
+# golang.org/x/text v0.22.0
 ## explicit; go 1.18
 golang.org/x/text/cases
 golang.org/x/text/encoding
