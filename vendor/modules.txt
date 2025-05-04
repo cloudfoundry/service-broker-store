@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/credhub-cli v0.0.0-20250422214913-c4e5375deae6
+# code.cloudfoundry.org/credhub-cli v0.0.0-20250429210922-e7482003b9e8
 ## explicit; go 1.23.0
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -8,7 +8,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.35.0
+# code.cloudfoundry.org/lager/v3 v3.36.0
 ## explicit; go 1.23.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -36,7 +36,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20250423184734-337e5dd93bb4
+# github.com/google/pprof v0.0.0-20250501235452-c0086092b71a
 ## explicit; go 1.23.0
 github.com/google/pprof/profile
 # github.com/hashicorp/go-version v1.7.0

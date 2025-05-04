@@ -5,8 +5,8 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	code.cloudfoundry.org/credhub-cli v0.0.0-20250422214913-c4e5375deae6
-	code.cloudfoundry.org/lager/v3 v3.35.0
+	code.cloudfoundry.org/credhub-cli v0.0.0-20250429210922-e7482003b9e8
+	code.cloudfoundry.org/lager/v3 v3.36.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
@@ -21,7 +21,7 @@ require (
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20250423184734-337e5dd93bb4 // indirect
+	github.com/google/pprof v0.0.0-20250501235452-c0086092b71a // indirect
 	github.com/hashicorp/go-version v1.7.0 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
