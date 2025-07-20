@@ -1,7 +1,7 @@
-code.cloudfoundry.org/credhub-cli v0.0.0-20250630133601-61e52f0de0d8 h1:umY9YcJtWHfVN1hLpwxVJ0YR0oIHSEkq+w0rB4tWIDs=
-code.cloudfoundry.org/credhub-cli v0.0.0-20250630133601-61e52f0de0d8/go.mod h1:N/mZo8LWav1FNUPJk31IBmT2R6i80C6fe8Hyo58mINI=
-code.cloudfoundry.org/lager/v3 v3.40.0 h1:Dtg0RgxELbiw5t+26jFNCzeZNhzwBJQsUf8z+JxFdrA=
-code.cloudfoundry.org/lager/v3 v3.40.0/go.mod h1:35Ji1Bqm7Hnzi8H1uxcEc2xPnO/lTOAi3WFkD5Z6W4A=
+code.cloudfoundry.org/credhub-cli v0.0.0-20250714135215-5818ddba5dbd h1:hNSqE7taAuj8jre95+zOgueCEKGWJXB0JWFZ8Wuk2Ks=
+code.cloudfoundry.org/credhub-cli v0.0.0-20250714135215-5818ddba5dbd/go.mod h1:2JIpig1f+5Tq89RhL5OHXG7s49A/Y54MlpMXw+O2SNY=
+code.cloudfoundry.org/lager/v3 v3.41.0 h1:VCnZVVmFNTQgslxiY9UH363H4+jXZyredvFCino6kRA=
+code.cloudfoundry.org/lager/v3 v3.41.0/go.mod h1:T3TdJR+5s7mct3jChCxUV/ctAyeio4T3p10hP75BZaA=
 github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851 h1:oy59UYcspoP44ggE8DM3kjxl1+sTFd802bbZlBBhBMk=
 github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851/go.mod h1:72EEm1oq5oXqGfu9XGtaRPWEcAFYd/P10cMNln0QhA8=
 github.com/cloudfoundry/socks5-proxy v0.2.156 h1:O0sqgbNlNzhUDU6B+Q1vAA0KdsHGViGYdKHSI1tYInc=
