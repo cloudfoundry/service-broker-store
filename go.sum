@@ -1,5 +1,5 @@
-code.cloudfoundry.org/credhub-cli v0.0.0-20250714135215-5818ddba5dbd h1:hNSqE7taAuj8jre95+zOgueCEKGWJXB0JWFZ8Wuk2Ks=
-code.cloudfoundry.org/credhub-cli v0.0.0-20250714135215-5818ddba5dbd/go.mod h1:2JIpig1f+5Tq89RhL5OHXG7s49A/Y54MlpMXw+O2SNY=
+code.cloudfoundry.org/credhub-cli v0.0.0-20250722200452-0eb58899fb2b h1:/ru+5nDy3pzrc2BZ92DVoKR0OD7FsNJOHKzbTPqjCFE=
+code.cloudfoundry.org/credhub-cli v0.0.0-20250722200452-0eb58899fb2b/go.mod h1:mqBbUTpuOIPKCf/1T4QBrdgD2QB6nI1ZVgBOj5MDfmk=
 code.cloudfoundry.org/lager/v3 v3.41.0 h1:VCnZVVmFNTQgslxiY9UH363H4+jXZyredvFCino6kRA=
 code.cloudfoundry.org/lager/v3 v3.41.0/go.mod h1:T3TdJR+5s7mct3jChCxUV/ctAyeio4T3p10hP75BZaA=
 github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851 h1:oy59UYcspoP44ggE8DM3kjxl1+sTFd802bbZlBBhBMk=
@@ -30,8 +30,8 @@ github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0 h1:9WsegDYiSKtZXru+NcOB4z7iqb00
 github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0/go.mod h1:TeVdzh+5QB5IpWDJAU/uviXA6kOg9yXzLrrjeLKJXqY=
 github.com/onsi/ginkgo/v2 v2.23.4 h1:ktYTpKJAVZnDT4VjxSbiBenUjmlL/5QkBEocaWXiQus=
 github.com/onsi/ginkgo/v2 v2.23.4/go.mod h1:Bt66ApGPBFzHyR+JO10Zbt0Gsp4uWxu5mIOTusL46e8=
-github.com/onsi/gomega v1.37.0 h1:CdEG8g0S133B4OswTDC/5XPSzE1OeP29QOioj2PID2Y=
-github.com/onsi/gomega v1.37.0/go.mod h1:8D9+Txp43QWKhM24yyOBEdpkzN8FvJyAwecBgsU4KU0=
+github.com/onsi/gomega v1.38.0 h1:c/WX+w8SLAinvuKKQFh77WEucCnPk4j2OTUr7lt7BeY=
+github.com/onsi/gomega v1.38.0/go.mod h1:OcXcwId0b9QsE7Y49u+BTrL4IdKOBOKnD6VQNTJEB6o=
 github.com/openzipkin/zipkin-go v0.4.3 h1:9EGwpqkgnwdEIJ+Od7QVSEIH+ocmm5nPat0G7sjsSdg=
 github.com/openzipkin/zipkin-go v0.4.3/go.mod h1:M9wCJZFWCo2RiY+o1eBCEMe0Dp2S5LDHcMZmk3RmK7c=
 github.com/pivotal-cf/brokerapi/v11 v11.0.16 h1:wdYS6RXgIeyMqY8UKzeJ4SqiQ4a3cEiL3ThV8d6RcNE=
