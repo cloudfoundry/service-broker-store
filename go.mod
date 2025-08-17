@@ -6,7 +6,7 @@ toolchain go1.23.6
 
 require (
 	code.cloudfoundry.org/credhub-cli v0.0.0-20250722200452-0eb58899fb2b
-	code.cloudfoundry.org/lager/v3 v3.42.0
+	code.cloudfoundry.org/lager/v3 v3.43.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.38.0
