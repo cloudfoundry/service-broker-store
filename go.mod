@@ -3,13 +3,13 @@ module code.cloudfoundry.org/service-broker-store
 go 1.24.0
 
 require (
-	code.cloudfoundry.org/credhub-cli v0.0.0-20250818133441-006e3fb362ab
-	code.cloudfoundry.org/lager/v3 v3.46.0
+	code.cloudfoundry.org/credhub-cli v0.0.0-20250909205012-f47c0c9e1b66
+	code.cloudfoundry.org/lager/v3 v3.47.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
 	github.com/onsi/ginkgo/v2 v2.25.3
 	github.com/onsi/gomega v1.38.2
 	github.com/pivotal-cf/brokerapi/v11 v11.0.16
-	golang.org/x/crypto v0.41.0
+	golang.org/x/crypto v0.42.0
 )
 
 require (
@@ -27,10 +27,10 @@ require (
 	github.com/stretchr/testify v1.9.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/mod v0.27.0 // indirect
-	golang.org/x/net v0.43.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
-	golang.org/x/text v0.28.0 // indirect
-	golang.org/x/tools v0.36.0 // indirect
+	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/net v0.44.0 // indirect
+	golang.org/x/sync v0.17.0 // indirect
+	golang.org/x/sys v0.36.0 // indirect
+	golang.org/x/text v0.29.0 // indirect
+	golang.org/x/tools v0.37.0 // indirect
 )
