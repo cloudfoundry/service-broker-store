@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/credhub-cli v0.0.0-20251120201329-a2c40328cdc4
+# code.cloudfoundry.org/credhub-cli v0.0.0-20251125211615-1945033c8416
 ## explicit; go 1.24.0
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -42,7 +42,7 @@ github.com/google/go-cmp/cmp/internal/value
 # github.com/google/pprof v0.0.0-20251114195745-4902fdda35c8
 ## explicit; go 1.24.0
 github.com/google/pprof/profile
-# github.com/hashicorp/go-version v1.7.0
+# github.com/hashicorp/go-version v1.8.0
 ## explicit
 github.com/hashicorp/go-version
 # github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0

@@ -3,7 +3,7 @@ module code.cloudfoundry.org/service-broker-store
 go 1.24.0
 
 require (
-	code.cloudfoundry.org/credhub-cli v0.0.0-20251120201329-a2c40328cdc4
+	code.cloudfoundry.org/credhub-cli v0.0.0-20251125211615-1945033c8416
 	code.cloudfoundry.org/lager/v3 v3.55.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
 	github.com/onsi/ginkgo/v2 v2.27.2
@@ -21,7 +21,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/pprof v0.0.0-20251114195745-4902fdda35c8 // indirect
-	github.com/hashicorp/go-version v1.7.0 // indirect
+	github.com/hashicorp/go-version v1.8.0 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
