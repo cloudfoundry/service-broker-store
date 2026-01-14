@@ -3,12 +3,12 @@ module code.cloudfoundry.org/service-broker-store
 go 1.24.9
 
 require (
+	code.cloudfoundry.org/brokerapi/v13 v13.0.9
 	code.cloudfoundry.org/credhub-cli v0.0.0-20251215140710-93274ab0250e
 	code.cloudfoundry.org/lager/v3 v3.57.0
-	github.com/maxbrunsfeld/counterfeiter/v6 v6.10.0
+	github.com/maxbrunsfeld/counterfeiter/v6 v6.12.0
 	github.com/onsi/ginkgo/v2 v2.27.4
 	github.com/onsi/gomega v1.39.0
-	github.com/pivotal-cf/brokerapi/v11 v11.0.16
 	golang.org/x/crypto v0.46.0
 )
 
