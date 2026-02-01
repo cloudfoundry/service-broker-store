@@ -1,7 +1,7 @@
 # code.cloudfoundry.org/brokerapi/v13 v13.0.17
 ## explicit; go 1.24.0
 code.cloudfoundry.org/brokerapi/v13/domain
-# code.cloudfoundry.org/credhub-cli v0.0.0-20260120220531-8a8e945863b2
+# code.cloudfoundry.org/credhub-cli v0.0.0-20260126140202-2a7d9013060a
 ## explicit; go 1.24.9
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -23,7 +23,7 @@ github.com/Masterminds/semver/v3
 # github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851
 ## explicit; go 1.21.0
 github.com/cloudfoundry/go-socks5
-# github.com/cloudfoundry/socks5-proxy v0.2.165
+# github.com/cloudfoundry/socks5-proxy v0.2.166
 ## explicit; go 1.24.0
 github.com/cloudfoundry/socks5-proxy
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
@@ -54,8 +54,8 @@ github.com/maxbrunsfeld/counterfeiter/v6
 github.com/maxbrunsfeld/counterfeiter/v6/arguments
 github.com/maxbrunsfeld/counterfeiter/v6/command
 github.com/maxbrunsfeld/counterfeiter/v6/generator
-# github.com/onsi/ginkgo/v2 v2.27.5
-## explicit; go 1.23.0
+# github.com/onsi/ginkgo/v2 v2.28.1
+## explicit; go 1.24.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
 github.com/onsi/ginkgo/v2/formatter
@@ -78,8 +78,8 @@ github.com/onsi/ginkgo/v2/internal/reporters
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.39.0
-## explicit; go 1.23.0
+# github.com/onsi/gomega v1.39.1
+## explicit; go 1.24.0
 github.com/onsi/gomega
 github.com/onsi/gomega/format
 github.com/onsi/gomega/gbytes
