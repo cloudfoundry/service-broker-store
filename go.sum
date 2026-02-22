@@ -1,7 +1,7 @@
-code.cloudfoundry.org/brokerapi/v13 v13.0.18 h1:bH6bYCh2Bt6Er8ZQta/vnENVC5/xHjniqQkq5ho4B+4=
-code.cloudfoundry.org/brokerapi/v13 v13.0.18/go.mod h1:qYfYAHaibujppj8yJ1hI5g9B1GRjpQJpqdHM6y+rpMA=
-code.cloudfoundry.org/credhub-cli v0.0.0-20260212202352-e7a28f9d31c0 h1:xhsdxVw5lVSqBRfRUMvuAx1t9lAh+eXzg2OLX9+Blag=
-code.cloudfoundry.org/credhub-cli v0.0.0-20260212202352-e7a28f9d31c0/go.mod h1:EBX3iz50IM8ifPkk2tJoX/PBwMMjwvFqeTgfu/3Q1OQ=
+code.cloudfoundry.org/brokerapi/v13 v13.0.19 h1:VkMfoaxSnAYU5SUccb57h9ElePdVD75t9EQeBC8ZYBM=
+code.cloudfoundry.org/brokerapi/v13 v13.0.19/go.mod h1:U6NIHE3wPyXWbFkweEFqCWYBss2shzIIceBFtJ7vRQw=
+code.cloudfoundry.org/credhub-cli v0.0.0-20260216140056-3ed7ad5aa36b h1:XxlZpmIxw47YHGoYHERJHEODWw2MY8qif+14p7pNRBU=
+code.cloudfoundry.org/credhub-cli v0.0.0-20260216140056-3ed7ad5aa36b/go.mod h1:N8MhsH6W8tsr+gnj1m4x0QyiAYPCGLNMoxcQIxBRvaA=
 code.cloudfoundry.org/lager/v3 v3.61.0 h1:YNejjStoYm5rTSf/C40asFlVDU00N8jD+n7ocaot2mg=
 code.cloudfoundry.org/lager/v3 v3.61.0/go.mod h1:c2whQ+hJEQvyU2YbhBkcP65J+GsVrFus/TwFjKseA1c=
 github.com/Masterminds/semver/v3 v3.4.0 h1:Zog+i5UMtVoCU8oKka5P7i9q9HgrJeGzI9SA1Xbatp0=
