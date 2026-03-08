@@ -3,9 +3,9 @@ module code.cloudfoundry.org/service-broker-store
 go 1.25.7
 
 require (
-	code.cloudfoundry.org/brokerapi/v13 v13.0.19
-	code.cloudfoundry.org/credhub-cli v0.0.0-20260216140056-3ed7ad5aa36b
-	code.cloudfoundry.org/lager/v3 v3.61.0
+	code.cloudfoundry.org/brokerapi/v13 v13.0.20
+	code.cloudfoundry.org/credhub-cli v0.0.0-20260302140100-b28cba4f6966
+	code.cloudfoundry.org/lager/v3 v3.62.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.12.1
 	github.com/onsi/ginkgo/v2 v2.28.1
 	github.com/onsi/gomega v1.39.1
@@ -15,12 +15,12 @@ require (
 require (
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851 // indirect
-	github.com/cloudfoundry/socks5-proxy v0.2.169 // indirect
+	github.com/cloudfoundry/socks5-proxy v0.2.170 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20260202012954-cb029daf43ef // indirect
+	github.com/google/pprof v0.0.0-20260302011040-a15ffb7f9dcc // indirect
 	github.com/hashicorp/go-version v1.8.0 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
