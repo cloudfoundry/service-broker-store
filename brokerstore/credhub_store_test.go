@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"code.cloudfoundry.org/brokerapi/v13/domain"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials/values"
 	"code.cloudfoundry.org/lager/v3"
@@ -12,7 +13,6 @@ import (
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims/credhub_fakes"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"code.cloudfoundry.org/brokerapi/v13/domain"
 	"golang.org/x/crypto/bcrypt"
 )
 
