@@ -4,9 +4,9 @@ package brokerstorefakes
 import (
 	"sync"
 
+	"code.cloudfoundry.org/brokerapi/v13/domain"
 	lager "code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/service-broker-store/brokerstore"
-	"code.cloudfoundry.org/brokerapi/v13/domain"
 )
 
 type FakeStore struct {

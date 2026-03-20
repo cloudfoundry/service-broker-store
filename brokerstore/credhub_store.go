@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"code.cloudfoundry.org/brokerapi/v13/domain"
 	"code.cloudfoundry.org/credhub-cli/credhub/credentials"
 	"code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/service-broker-store/brokerstore/credhub_shims"
-	"code.cloudfoundry.org/brokerapi/v13/domain"
 )
 
 type CredhubStore struct {
