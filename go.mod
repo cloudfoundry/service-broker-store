@@ -3,19 +3,19 @@ module code.cloudfoundry.org/service-broker-store
 go 1.25.7
 
 require (
-	code.cloudfoundry.org/brokerapi/v13 v13.0.22
-	code.cloudfoundry.org/credhub-cli v0.0.0-20260420130056-7d96fd093179
-	code.cloudfoundry.org/lager/v3 v3.66.0
+	code.cloudfoundry.org/brokerapi/v13 v13.0.23
+	code.cloudfoundry.org/credhub-cli v0.0.0-20260427130137-96647328890b
+	code.cloudfoundry.org/lager/v3 v3.67.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.12.2
-	github.com/onsi/ginkgo/v2 v2.28.1
-	github.com/onsi/gomega v1.39.1
+	github.com/onsi/ginkgo/v2 v2.28.3
+	github.com/onsi/gomega v1.40.0
 	golang.org/x/crypto v0.50.0
 )
 
 require (
-	github.com/Masterminds/semver/v3 v3.4.0 // indirect
+	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851 // indirect
-	github.com/cloudfoundry/socks5-proxy v0.2.173 // indirect
+	github.com/cloudfoundry/socks5-proxy v0.2.174 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect

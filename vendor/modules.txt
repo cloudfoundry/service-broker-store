@@ -1,7 +1,7 @@
-# code.cloudfoundry.org/brokerapi/v13 v13.0.22
+# code.cloudfoundry.org/brokerapi/v13 v13.0.23
 ## explicit; go 1.25.0
 code.cloudfoundry.org/brokerapi/v13/domain
-# code.cloudfoundry.org/credhub-cli v0.0.0-20260420130056-7d96fd093179
+# code.cloudfoundry.org/credhub-cli v0.0.0-20260427130137-96647328890b
 ## explicit; go 1.25.7
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -11,19 +11,19 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.66.0
+# code.cloudfoundry.org/lager/v3 v3.67.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
 code.cloudfoundry.org/lager/v3/lagerctx
 code.cloudfoundry.org/lager/v3/lagertest
-# github.com/Masterminds/semver/v3 v3.4.0
+# github.com/Masterminds/semver/v3 v3.5.0
 ## explicit; go 1.21
 github.com/Masterminds/semver/v3
 # github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851
 ## explicit; go 1.21.0
 github.com/cloudfoundry/go-socks5
-# github.com/cloudfoundry/socks5-proxy v0.2.173
+# github.com/cloudfoundry/socks5-proxy v0.2.174
 ## explicit; go 1.25.0
 github.com/cloudfoundry/socks5-proxy
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
@@ -54,8 +54,8 @@ github.com/maxbrunsfeld/counterfeiter/v6
 github.com/maxbrunsfeld/counterfeiter/v6/arguments
 github.com/maxbrunsfeld/counterfeiter/v6/command
 github.com/maxbrunsfeld/counterfeiter/v6/generator
-# github.com/onsi/ginkgo/v2 v2.28.1
-## explicit; go 1.24.0
+# github.com/onsi/ginkgo/v2 v2.28.3
+## explicit; go 1.25.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
 github.com/onsi/ginkgo/v2/formatter
@@ -78,7 +78,7 @@ github.com/onsi/ginkgo/v2/internal/reporters
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.39.1
+# github.com/onsi/gomega v1.40.0
 ## explicit; go 1.24.0
 github.com/onsi/gomega
 github.com/onsi/gomega/format
