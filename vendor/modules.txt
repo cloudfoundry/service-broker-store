@@ -1,7 +1,7 @@
-# code.cloudfoundry.org/brokerapi/v13 v13.0.23
+# code.cloudfoundry.org/brokerapi/v13 v13.0.24
 ## explicit; go 1.25.0
 code.cloudfoundry.org/brokerapi/v13/domain
-# code.cloudfoundry.org/credhub-cli v0.0.0-20260504130126-6b92e9c348b0
+# code.cloudfoundry.org/credhub-cli v0.0.0-20260511130211-a3ce9828f30e
 ## explicit; go 1.25.7
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -11,7 +11,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.68.0
+# code.cloudfoundry.org/lager/v3 v3.69.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
