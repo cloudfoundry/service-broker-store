@@ -1,7 +1,7 @@
-# code.cloudfoundry.org/brokerapi/v13 v13.0.24
+# code.cloudfoundry.org/brokerapi/v13 v13.0.25
 ## explicit; go 1.25.0
 code.cloudfoundry.org/brokerapi/v13/domain
-# code.cloudfoundry.org/credhub-cli v0.0.0-20260511130211-a3ce9828f30e
+# code.cloudfoundry.org/credhub-cli v0.0.0-20260518130143-ff3c0bccfc2a
 ## explicit; go 1.25.7
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -11,7 +11,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.69.0
+# code.cloudfoundry.org/lager/v3 v3.70.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -23,7 +23,7 @@ github.com/Masterminds/semver/v3
 # github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851
 ## explicit; go 1.21.0
 github.com/cloudfoundry/go-socks5
-# github.com/cloudfoundry/socks5-proxy v0.2.175
+# github.com/cloudfoundry/socks5-proxy v0.2.176
 ## explicit; go 1.25.0
 github.com/cloudfoundry/socks5-proxy
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
@@ -54,7 +54,7 @@ github.com/maxbrunsfeld/counterfeiter/v6
 github.com/maxbrunsfeld/counterfeiter/v6/arguments
 github.com/maxbrunsfeld/counterfeiter/v6/command
 github.com/maxbrunsfeld/counterfeiter/v6/generator
-# github.com/onsi/ginkgo/v2 v2.28.3
+# github.com/onsi/ginkgo/v2 v2.29.0
 ## explicit; go 1.25.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
@@ -78,7 +78,7 @@ github.com/onsi/ginkgo/v2/internal/reporters
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.40.0
+# github.com/onsi/gomega v1.41.0
 ## explicit; go 1.24.0
 github.com/onsi/gomega
 github.com/onsi/gomega/format
@@ -103,7 +103,7 @@ github.com/openzipkin/zipkin-go/model
 # go.yaml.in/yaml/v3 v3.0.4
 ## explicit; go 1.16
 go.yaml.in/yaml/v3
-# golang.org/x/crypto v0.51.0
+# golang.org/x/crypto v0.52.0
 ## explicit; go 1.25.0
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/blowfish
@@ -118,7 +118,7 @@ golang.org/x/crypto/ssh/internal/bcrypt_pbkdf
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/net v0.54.0
+# golang.org/x/net v0.55.0
 ## explicit; go 1.25.0
 golang.org/x/net/context
 golang.org/x/net/html
@@ -129,7 +129,7 @@ golang.org/x/net/proxy
 # golang.org/x/sync v0.20.0
 ## explicit; go 1.25.0
 golang.org/x/sync/errgroup
-# golang.org/x/sys v0.44.0
+# golang.org/x/sys v0.45.0
 ## explicit; go 1.25.0
 golang.org/x/sys/cpu
 golang.org/x/sys/unix
