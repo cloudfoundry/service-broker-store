@@ -4,18 +4,18 @@ go 1.25.7
 
 require (
 	code.cloudfoundry.org/brokerapi/v13 v13.0.25
-	code.cloudfoundry.org/credhub-cli v0.0.0-20260615130246-5a953b5cfb54
-	code.cloudfoundry.org/lager/v3 v3.74.0
+	code.cloudfoundry.org/credhub-cli v0.0.0-20260622130231-57c8cb0f1d6e
+	code.cloudfoundry.org/lager/v3 v3.75.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.12.2
-	github.com/onsi/ginkgo/v2 v2.31.0
-	github.com/onsi/gomega v1.42.0
+	github.com/onsi/ginkgo/v2 v2.32.0
+	github.com/onsi/gomega v1.42.1
 	golang.org/x/crypto v0.53.0
 )
 
 require (
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851 // indirect
-	github.com/cloudfoundry/socks5-proxy v0.2.179 // indirect
+	github.com/cloudfoundry/socks5-proxy v0.2.180 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
@@ -31,5 +31,5 @@ require (
 	golang.org/x/sync v0.21.0 // indirect
 	golang.org/x/sys v0.46.0 // indirect
 	golang.org/x/text v0.38.0 // indirect
-	golang.org/x/tools v0.46.0 // indirect
+	golang.org/x/tools v0.47.0 // indirect
 )
