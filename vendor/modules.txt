@@ -1,7 +1,7 @@
 # code.cloudfoundry.org/brokerapi/v13 v13.0.25
 ## explicit; go 1.25.0
 code.cloudfoundry.org/brokerapi/v13/domain
-# code.cloudfoundry.org/credhub-cli v0.0.0-20260720130235-c9ed4c5ab2e9
+# code.cloudfoundry.org/credhub-cli v0.0.0-20260727130059-9e78db728bcf
 ## explicit; go 1.25.7
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -11,7 +11,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.79.0
+# code.cloudfoundry.org/lager/v3 v3.80.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -100,7 +100,7 @@ github.com/openzipkin/zipkin-go/model
 ## explicit
 # github.com/stretchr/testify v1.9.0
 ## explicit; go 1.17
-# go.yaml.in/yaml/v3 v3.0.4
+# go.yaml.in/yaml/v3 v3.0.5
 ## explicit; go 1.16
 go.yaml.in/yaml/v3
 # golang.org/x/crypto v0.54.0
