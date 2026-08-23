@@ -4,7 +4,7 @@ go 1.25.7
 
 require (
 	code.cloudfoundry.org/brokerapi/v13 v13.0.25
-	code.cloudfoundry.org/credhub-cli v0.0.0-20260810130209-30d25c5528ee
+	code.cloudfoundry.org/credhub-cli v0.0.0-20260817130202-803f4962b541
 	code.cloudfoundry.org/lager/v3 v3.82.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.12.2
 	github.com/onsi/ginkgo/v2 v2.32.1
