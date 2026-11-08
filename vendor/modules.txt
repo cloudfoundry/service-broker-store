@@ -1,7 +1,7 @@
 # code.cloudfoundry.org/brokerapi/v13 v13.0.25
 ## explicit; go 1.25.0
 code.cloudfoundry.org/brokerapi/v13/domain
-# code.cloudfoundry.org/credhub-cli v0.0.0-20261026130105-f79293e36002
+# code.cloudfoundry.org/credhub-cli v0.0.0-20261102140143-ec715de56bf2
 ## explicit; go 1.26.10
 code.cloudfoundry.org/credhub-cli/credhub
 code.cloudfoundry.org/credhub-cli/credhub/auth
@@ -11,7 +11,7 @@ code.cloudfoundry.org/credhub-cli/credhub/credentials/generate
 code.cloudfoundry.org/credhub-cli/credhub/credentials/values
 code.cloudfoundry.org/credhub-cli/credhub/permissions
 code.cloudfoundry.org/credhub-cli/credhub/server
-# code.cloudfoundry.org/lager/v3 v3.93.0
+# code.cloudfoundry.org/lager/v3 v3.94.0
 ## explicit; go 1.26.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -23,7 +23,7 @@ github.com/Masterminds/semver/v3
 # github.com/cloudfoundry/go-socks5 v0.0.0-20250423223041-4ad5fea42851
 ## explicit; go 1.21.0
 github.com/cloudfoundry/go-socks5
-# github.com/cloudfoundry/socks5-proxy v0.2.194
+# github.com/cloudfoundry/socks5-proxy v0.2.195
 ## explicit; go 1.26.10
 github.com/cloudfoundry/socks5-proxy
 # github.com/go-logr/logr v1.4.4
@@ -40,7 +40,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20261026192309-dbd0ed30aa88
+# github.com/google/pprof v0.0.0-20261105003125-4bf881d7fb0b
 ## explicit; go 1.26.0
 github.com/google/pprof/profile
 # github.com/hashicorp/go-version v1.9.0
@@ -52,7 +52,7 @@ github.com/maxbrunsfeld/counterfeiter/v6
 github.com/maxbrunsfeld/counterfeiter/v6/arguments
 github.com/maxbrunsfeld/counterfeiter/v6/command
 github.com/maxbrunsfeld/counterfeiter/v6/generator
-# github.com/onsi/ginkgo/v2 v2.33.1
+# github.com/onsi/ginkgo/v2 v2.34.0
 ## explicit; go 1.25.0
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
@@ -94,6 +94,8 @@ github.com/onsi/gomega/types
 ## explicit; go 1.20
 github.com/openzipkin/zipkin-go/idgenerator
 github.com/openzipkin/zipkin-go/model
+# github.com/sergi/go-diff v1.4.0
+## explicit; go 1.13
 # go.yaml.in/yaml/v3 v3.0.6
 ## explicit; go 1.16
 go.yaml.in/yaml/v3
